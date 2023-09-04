@@ -1,3 +1,4 @@
+import 'package:company_manager_client/pages/dashboard_page.dart';
 import 'package:company_manager_client/pages/initial_page.dart';
 import 'package:company_manager_client/utils/constants.dart';
 import 'package:company_manager_client/utils/themes.dart';
@@ -20,7 +21,8 @@ class MyApp extends ConsumerWidget {
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: Themes.myThemeData(isDarkTheme),
-      home: const InitialPage(),
+      //home: const InitialPage(),
+      home: const DashboardPage(),
     );
   }
 }

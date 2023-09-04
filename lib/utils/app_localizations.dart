@@ -12,7 +12,7 @@ class AppLocalizations {
     return AppLocalizations(locale);
   });
 
-  // Aggiungi metodi per ottenere le traduzioni
+  // metodi per ottenere le traduzioni
   String? get login => _localizedValues[locale.languageCode]?['login'];
   String? get signIn => _localizedValues[locale.languageCode]?['signIn'];
   String? get loginWithBarCode => _localizedValues[locale.languageCode]?['loginWithBarCode'];
@@ -21,9 +21,17 @@ class AppLocalizations {
   String? get firstName => _localizedValues[locale.languageCode]?['firstName'];
   String? get lastName => _localizedValues[locale.languageCode]?['lastName'];
   String? get changeLanguage => _localizedValues[locale.languageCode]?['changeLanguage'];
+  String? get notRegisteredYet => _localizedValues[locale.languageCode]?['notRegisteredYet'];
+  String? get users => _localizedValues[locale.languageCode]?['users'];
+  String? get workShift => _localizedValues[locale.languageCode]?['workShift'];
+  String? get warehouse => _localizedValues[locale.languageCode]?['warehouse'];
+  String? get material => _localizedValues[locale.languageCode]?['material'];
+  String? get settings => _localizedValues[locale.languageCode]?['settings'];
+
+
   
 
-  // Definisci un mappaggio delle traduzioni
+  // mapping delle traduzioni
   static const Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'login': 'Login',
@@ -34,6 +42,12 @@ class AppLocalizations {
       'firstName': "First name",
       'lastName': "Last name",
       'changeLanguage': "Change language",
+      'notRegisteredYet': "Not registered yet?",
+      'users': 'Users',
+      'workShift': 'Work shift',
+      'warehouse': 'Warehouse',
+      'material': 'Material',
+      'settings': 'Settings',
     },
     'it': {
       'login': 'Accedi',
@@ -44,6 +58,12 @@ class AppLocalizations {
       'firstName': "Nome",
       'lastName': "Cognome",
       'changeLanguage': "Cambia lingua",
+      'notRegisteredYet': "Non sei ancora registrato?",
+      'users': 'Utenti',
+      'workShift': 'Turni di lavoro',
+      'warehouse': 'Magazzino',
+      'material': 'Materiale',
+      'settings': 'Impostazioni',
     },
     // Aggiungi altre lingue qui...
   };

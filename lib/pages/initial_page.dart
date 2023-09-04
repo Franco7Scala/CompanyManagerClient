@@ -1,3 +1,4 @@
+import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/constants.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/change_language_button.dart';
@@ -6,12 +7,15 @@ import 'package:company_manager_client/widgets/login_button.dart';
 import 'package:company_manager_client/widgets/my_logo.dart';
 import 'package:company_manager_client/widgets/sign_in_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class InitialPage extends StatelessWidget {
+class InitialPage extends ConsumerWidget {
   const InitialPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appLocalization=ref.watch(AppLocalizations.providers);
+
     return Scaffold(
 
       appBar: AppBar(
@@ -64,32 +68,32 @@ class InitialPage extends StatelessWidget {
         ],
       ),
 
-      body: const ResponsiveLayout(
+      body: ResponsiveLayout(
         
         //mobile layout
         mobile: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            MyLogo(),
+            const MyLogo(),
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  LoginButton(),
-                  SizedBox(height: 5.0,),
-                  Divider(
+                  const LoginButton(),
+                  const SizedBox(height: 5.0,),
+                  const Divider(
                     indent: 40.0,
                     endIndent: 40.0,
                   ),
-                  SizedBox(height: 5.0,),
+                  const SizedBox(height: 5.0,),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Not registered yet?"),
-                      SizedBox(width: 10.0,),
-                      SignInButton(),
+                      Text(appLocalization.notRegisteredYet!),
+                      const SizedBox(width: 10.0,),
+                      const SignInButton(),
                     ],
                   ),
                 ],
@@ -99,7 +103,7 @@ class InitialPage extends StatelessWidget {
         ),
 
         //tbalet layout
-        tablet: Center(
+        tablet: const Center(
           child: SizedBox(
             width: 900.0,
             height: 450.0,  
@@ -108,7 +112,7 @@ class InitialPage extends StatelessWidget {
         ),
 
         //desktop layout
-        desktop: Center(
+        desktop: const Center(
           child: SizedBox(
             width: 1000.0,
             height: 500.0,  
