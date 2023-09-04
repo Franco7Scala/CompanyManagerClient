@@ -1,19 +1,21 @@
+import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/my_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  SignInFormState createState() => SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class SignInFormState extends ConsumerState<SignInForm> {
   final _firstNameController=TextEditingController();
   final _lastNameController=TextEditingController();
-  final _mailController=TextEditingController();
+  final _usernameController=TextEditingController();
   final _passwordController = TextEditingController();
   bool _hidePassword = true;
   bool _isTyping = false;
@@ -39,6 +41,8 @@ class _SignInFormState extends State<SignInForm> {
   
   @override
   Widget build(BuildContext context) {
+    final appLocalization=ref.watch(AppLocalizations.providers);
+
     return AlertDialog(
       //contentPadding: const EdgeInsets.all(12.0),
       scrollable: true,
@@ -53,32 +57,32 @@ class _SignInFormState extends State<SignInForm> {
               const MyLogo(),
               const SizedBox(height: 20.0,) ,
 
-              const Text("Sign in", style: TextStyle(fontSize: 20.0),),
+              Text(appLocalization.signIn!, style: const TextStyle(fontSize: 20.0),),
               const SizedBox(height: 16.0,),
 
               TextField(
                 controller: _firstNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Type your first name",
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: appLocalization.firstName,
                 ),
               ),
               const SizedBox(height: 16.0,),
 
               TextField(
                 controller: _lastNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Type your last name",
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: appLocalization.lastName,
                 ),
               ),
               const SizedBox(height: 16.0,),
 
               TextField(
-                controller: _mailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Type your username",
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: appLocalization.typeYourUsername,
                 ),
               ),
               const SizedBox(height: 16.0,),
@@ -88,7 +92,7 @@ class _SignInFormState extends State<SignInForm> {
                 obscureText: _hidePassword,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: "Type your password",
+                  labelText: appLocalization.typeYourPassword,
                   suffixIcon: _isTyping
                     ? IconButton(
                       onPressed: () {
@@ -112,7 +116,7 @@ class _SignInFormState extends State<SignInForm> {
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                 ),
-                child: const Text("Sign in"),
+                child: Text(appLocalization.signIn!),
               ),
 
             ],

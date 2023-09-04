@@ -1,17 +1,19 @@
+import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/bar_code.dart';
 import 'package:company_manager_client/widgets/my_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  LoginFormState createState() => LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class LoginFormState extends ConsumerState<LoginForm> {
   final _usernameController=TextEditingController();
   final _passwordController = TextEditingController();
   bool _hidePassword = true;
@@ -38,6 +40,8 @@ class _LoginFormState extends State<LoginForm> {
   
   @override
   Widget build(BuildContext context) {
+    final appLocalization=ref.watch(AppLocalizations.providers);
+
     return AlertDialog(
       scrollable: true,
       content: SizedBox(
@@ -51,14 +55,14 @@ class _LoginFormState extends State<LoginForm> {
               const MyLogo(),
               const SizedBox(height: 20.0,) ,
               
-              const Text("Login", style: TextStyle(fontSize: 20.0),),
+              Text(appLocalization.login!, style: const TextStyle(fontSize: 20.0),),
               const SizedBox(height: 16.0,),
 
               TextField(
                 controller: _usernameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Type your username",
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: appLocalization.typeYourUsername,
                 ),
               ),
               const SizedBox(height: 16.0,),
@@ -68,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
                 obscureText: _hidePassword,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: "Type your password",
+                  labelText: appLocalization.typeYourPassword,
                   suffixIcon: _isTyping
                     ? IconButton(
                       onPressed: () {
@@ -99,7 +103,7 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                 ),
-                child: const Text("Login"),
+                child: Text(appLocalization.login!),
               ),
               const SizedBox(height: 14.0,),
               
@@ -111,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                 ),
-                child: const Text("Login with bar-code"),
+                child: Text(appLocalization.loginWithBarCode!),
               ),
 
             ],

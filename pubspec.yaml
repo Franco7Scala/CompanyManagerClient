@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.3.10
   iconsax: ^0.0.8
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:

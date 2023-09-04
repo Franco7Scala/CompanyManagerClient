@@ -1,12 +1,16 @@
+import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/sign_in_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignInButton extends StatelessWidget {
+class SignInButton extends ConsumerWidget {
   const SignInButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appLocalization=ref.watch(AppLocalizations.providers);
+
     return OutlinedButton(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -21,7 +25,7 @@ class SignInButton extends StatelessWidget {
         context: context, 
         builder: (BuildContext context) => const SignInForm(),
       ),
-      child: const Text("Sign in"),
+      child: Text(appLocalization.signIn!),
     );
   }
 }
