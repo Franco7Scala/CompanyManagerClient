@@ -27,8 +27,17 @@ class AppLocalizations {
   String? get warehouse => _localizedValues[locale.languageCode]?['warehouse'];
   String? get material => _localizedValues[locale.languageCode]?['material'];
   String? get settings => _localizedValues[locale.languageCode]?['settings'];
-
-
+  String? get usersManagment => _localizedValues[locale.languageCode]?['usersManagment'];
+  String? get workShiftManagment => _localizedValues[locale.languageCode]?['workShiftManagment'];
+  String? get warehouseManagment => _localizedValues[locale.languageCode]?['warehouseManagment'];
+  String? get materialManagment => _localizedValues[locale.languageCode]?['materialManagment'];
+  String? get logout => _localizedValues[locale.languageCode]?['logout'];
+  String? get changePassword => _localizedValues[locale.languageCode]?['changePassword'];
+  String? get printCard => _localizedValues[locale.languageCode]?['printCard'];
+  String? get oldPassword => _localizedValues[locale.languageCode]?['oldPassword'];
+  String? get newPassword => _localizedValues[locale.languageCode]?['newPassword'];
+  String? get save => _localizedValues[locale.languageCode]?['save'];
+  String? get print => _localizedValues[locale.languageCode]?['print'];
   
 
   // mapping delle traduzioni
@@ -48,6 +57,17 @@ class AppLocalizations {
       'warehouse': 'Warehouse',
       'material': 'Material',
       'settings': 'Settings',
+      'usersManagment': 'Users managmnet',
+      'workShiftManagment': 'Work shift managment',
+      'warehouseManagment': 'Warehouse managment',
+      'materialManagment': 'Material managmnet',
+      'logout': 'Logout',
+      'changePassword': 'Change password',
+      'printCard': 'Print card',
+      'oldPassword': 'Old password',
+      'newPassword': 'New password',
+      'save' : 'Save',
+      'print' : 'Print',
     },
     'it': {
       'login': 'Accedi',
@@ -64,6 +84,17 @@ class AppLocalizations {
       'warehouse': 'Magazzino',
       'material': 'Materiale',
       'settings': 'Impostazioni',
+      'usersManagment': 'Gestione utenti',
+      'workShiftManagment': 'Gestione turni di lavoro',
+      'warehouseManagment': 'Gestione magazzino',
+      'materialManagment': 'Gestione materiale',
+      'logout': "Esci",
+      'changePassword': 'Cambia password',
+      'printCard': 'Stampa tessera',
+      'oldPassword': 'Vecchia password',
+      'newPassword': 'Nuova password',
+      'save' : 'Salva',
+      'print' : 'Stampa',
     },
     // Aggiungi altre lingue qui...
   };

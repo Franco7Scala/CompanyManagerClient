@@ -1,3 +1,4 @@
+import 'package:company_manager_client/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class Constants {
@@ -11,7 +12,7 @@ class Constants {
     Center(child: Text("2°"),),
     Center(child: Text("3°"),),
     Center(child: Text("4°"),),
-    Center(child: Text("5°"),),
+    SettingsPage(),
   ];
 
 }
