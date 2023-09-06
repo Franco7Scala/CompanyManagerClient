@@ -167,18 +167,18 @@ class Themes {
   );
   
   static ChipThemeData _myChipTheme(bool isDarkTheme) => ChipThemeData(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(25.0)
-    ),
+    //shape: RoundedRectangleBorder(
+    //  borderRadius: BorderRadius.circular(25.0)
+    //),
     backgroundColor: isDarkTheme ? Colors.black : Colors.white,
     labelStyle: TextStyle(
       color: isDarkTheme ? Colors. white : Colors.black,
     ),
-    //selectedColor: Colors.red[100], //il colore del chip quando viene selezionato
+    selectedColor: Colors.grey[400], //il colore del chip quando viene selezionato
     secondaryLabelStyle: const  TextStyle( //il colore del testo quando premo il chip 
       color: Colors.black,
     ),
-    elevation: 10.0,
+    elevation: 5.0,
     iconTheme: IconThemeData(
       color: isDarkTheme ? Colors.white : Colors.black,
       size: 18.0

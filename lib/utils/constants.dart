@@ -1,4 +1,5 @@
 import 'package:company_manager_client/pages/settings_page.dart';
+import 'package:company_manager_client/pages/users_managment_page.dart';
 import 'package:flutter/material.dart';
 
 class Constants {
@@ -8,7 +9,7 @@ class Constants {
 
   //pages
   static const pages = [
-    Center(child: Text("1°"),),
+    UserManagmentPage(),
     Center(child: Text("2°"),),
     Center(child: Text("3°"),),
     Center(child: Text("4°"),),

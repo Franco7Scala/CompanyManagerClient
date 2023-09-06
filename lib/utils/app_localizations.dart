@@ -30,7 +30,7 @@ class AppLocalizations {
   String? get usersManagment => _localizedValues[locale.languageCode]?['usersManagment'];
   String? get workShiftManagment => _localizedValues[locale.languageCode]?['workShiftManagment'];
   String? get warehouseManagment => _localizedValues[locale.languageCode]?['warehouseManagment'];
-  String? get materialManagment => _localizedValues[locale.languageCode]?['materialManagment'];
+  String? get stuffManagment => _localizedValues[locale.languageCode]?['stuffManagment'];
   String? get logout => _localizedValues[locale.languageCode]?['logout'];
   String? get changePassword => _localizedValues[locale.languageCode]?['changePassword'];
   String? get printCard => _localizedValues[locale.languageCode]?['printCard'];
@@ -38,6 +38,22 @@ class AppLocalizations {
   String? get newPassword => _localizedValues[locale.languageCode]?['newPassword'];
   String? get save => _localizedValues[locale.languageCode]?['save'];
   String? get print => _localizedValues[locale.languageCode]?['print'];
+  String? get showUsers => _localizedValues[locale.languageCode]?['showUsers'];
+  String? get hideUsers => _localizedValues[locale.languageCode]?['hideUsers'];
+  String? get addUser => _localizedValues[locale.languageCode]?['addUser'];
+  String? get edit => _localizedValues[locale.languageCode]?['edit'];
+  String? get delete => _localizedValues[locale.languageCode]?['delete'];
+  String? get code => _localizedValues[locale.languageCode]?['code'];
+  String? get dailyWage => _localizedValues[locale.languageCode]?['dailyWage'];
+  String? get cancel => _localizedValues[locale.languageCode]?['cancel'];
+  String? get capacity => _localizedValues[locale.languageCode]?['capacity'];
+  String? get addProduct => _localizedValues[locale.languageCode]?['addProduct'];
+  String? get addStuffs => _localizedValues[locale.languageCode]?['addStuffs'];
+  String? get products => _localizedValues[locale.languageCode]?['products'];
+  String? get stuffs => _localizedValues[locale.languageCode]?['stuffs'];
+  String? get addCapacity => _localizedValues[locale.languageCode]?['addCapacity'];
+  String? get editUser => _localizedValues[locale.languageCode]?['editUser'];
+  String? get deleteUser => _localizedValues[locale.languageCode]?['deleteUser'];
   
 
   // mapping delle traduzioni
@@ -57,10 +73,10 @@ class AppLocalizations {
       'warehouse': 'Warehouse',
       'material': 'Material',
       'settings': 'Settings',
-      'usersManagment': 'Users managmnet',
+      'usersManagment': 'Users managment',
       'workShiftManagment': 'Work shift managment',
       'warehouseManagment': 'Warehouse managment',
-      'materialManagment': 'Material managmnet',
+      'stuffManagment': 'Stuff managment',
       'logout': 'Logout',
       'changePassword': 'Change password',
       'printCard': 'Print card',
@@ -68,6 +84,22 @@ class AppLocalizations {
       'newPassword': 'New password',
       'save' : 'Save',
       'print' : 'Print',
+      'showUsers' : 'Show users',
+      'hideUsers' : 'Hide users',
+      'addUser': 'Add user',
+      "edit": 'Edit',
+      "delete": 'Delete',
+      'code' : 'Code',
+      'dailyWage' : 'Daily wage',
+      'cancel' : 'Cancel',
+      'capacity': 'Capacity',
+      'addProduct': 'Add product',
+      'addStuffs': 'Add stuffs',
+      'products': 'Products',
+      'stuffs': 'Stuffs',
+      'addCapacity': 'Add capacity',
+      'editUser': 'Edit user',
+      'deleteUser': 'Delete user',
     },
     'it': {
       'login': 'Accedi',
@@ -87,7 +119,7 @@ class AppLocalizations {
       'usersManagment': 'Gestione utenti',
       'workShiftManagment': 'Gestione turni di lavoro',
       'warehouseManagment': 'Gestione magazzino',
-      'materialManagment': 'Gestione materiale',
+      'stuffManagment': 'Gestione materiale',
       'logout': "Esci",
       'changePassword': 'Cambia password',
       'printCard': 'Stampa tessera',
@@ -95,6 +127,22 @@ class AppLocalizations {
       'newPassword': 'Nuova password',
       'save' : 'Salva',
       'print' : 'Stampa',
+      'showUsers' : 'Visualizza utenti',
+      'hideUsers' : 'Nascondi utenti',
+      'addUser': 'Aggiungi utente',
+      "edit": 'Modifica',
+      "delete": 'Elimina',
+      'code' : 'Codice',
+      'dailyWage' : 'Salario giornaliero',
+      'cancel' : 'Annulla',
+      'capacity': 'Capacità',
+      'addProduct': 'Aggiungi prodotto',
+      'addStuffs': 'Aggiungi materiale',
+      'products': 'Prodotti',
+      'stuffs': 'Materiali',
+      'addCapacity': 'Aggiungi capacità',
+      'editUser': 'Modifica utente',
+      'deleteUser': 'Elimina utente',
     },
     // Aggiungi altre lingue qui...
   };

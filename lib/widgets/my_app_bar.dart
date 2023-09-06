@@ -22,7 +22,7 @@ class MyAppBar extends ConsumerWidget implements PreferredSizeWidget {
       appLocalization.usersManagment,
       appLocalization.workShiftManagment,
       appLocalization.warehouseManagment,
-      appLocalization.materialManagment,
+      appLocalization.stuffManagment,
       appLocalization.settings,
     ];
 
