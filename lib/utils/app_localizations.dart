@@ -54,7 +54,21 @@ class AppLocalizations {
   String? get addCapacity => _localizedValues[locale.languageCode]?['addCapacity'];
   String? get editUser => _localizedValues[locale.languageCode]?['editUser'];
   String? get deleteUser => _localizedValues[locale.languageCode]?['deleteUser'];
-  
+  String? get showCalendar => _localizedValues[locale.languageCode]?['showCalendar'];
+  String? get daysThisMonth => _localizedValues[locale.languageCode]?['daysThisMonth'];
+  String? get daysPreviousMonth => _localizedValues[locale.languageCode]?['daysPreviousMonth'];
+
+  String? get addDay => _localizedValues[locale.languageCode]?['addDay'];
+  String? get day => _localizedValues[locale.languageCode]?['day']; 
+  String? get summary => _localizedValues[locale.languageCode]?['summary']; 
+  String? get month => _localizedValues[locale.languageCode]?['month'];
+  String? get thisMonth => _localizedValues[locale.languageCode]?['thisMonth'];
+  String? get previousMonth => _localizedValues[locale.languageCode]?['previousMonth']; 
+  String? get days => _localizedValues[locale.languageCode]?['days'];
+  String? get salary => _localizedValues[locale.languageCode]?['salary']; 
+  String? get date => _localizedValues[locale.languageCode]?['date']; 
+  String? get noResult => _localizedValues[locale.languageCode]?['noResult'];
+
 
   // mapping delle traduzioni
   static const Map<String, Map<String, String>> _localizedValues = {
@@ -100,6 +114,19 @@ class AppLocalizations {
       'addCapacity': 'Add capacity',
       'editUser': 'Edit user',
       'deleteUser': 'Delete user',
+      'showCalendar': 'Show calendar',
+      'daysThisMonth': 'Days this month',
+      'daysPreviousMonth': 'Days previous month',
+      'addDay': 'Add days',  
+      'day': 'Day', 
+      'summary': 'Summary',
+      'month': 'Month', 
+      'thisMonth': 'This month',  
+      'previousMonth': 'Previous month', 
+      'days': 'Days', 
+      'salary': 'Salary',   
+      'date': 'Date', 
+      'noResult': 'No result', 
     },
     'it': {
       'login': 'Accedi',
@@ -127,7 +154,7 @@ class AppLocalizations {
       'newPassword': 'Nuova password',
       'save' : 'Salva',
       'print' : 'Stampa',
-      'showUsers' : 'Visualizza utenti',
+      'showUsers' : 'Mostra utenti',
       'hideUsers' : 'Nascondi utenti',
       'addUser': 'Aggiungi utente',
       "edit": 'Modifica',
@@ -143,6 +170,19 @@ class AppLocalizations {
       'addCapacity': 'Aggiungi capacità',
       'editUser': 'Modifica utente',
       'deleteUser': 'Elimina utente',
+      'showCalendar': 'Mostra calendario',
+      'daysThisMonth': 'Giornate questo mese',
+      'daysPreviousMonth': 'Giornate mese precedente',
+      'addDay': 'Aggiungi giornata',
+      'day': 'Giorno',
+      'summary': 'Riepilogo',
+      'month': 'Mese',
+      'thisMonth': 'Questo mese',
+      'previousMonth': 'Mese precedente',
+      'days': 'Giornate', 
+      'salary': 'Salario',
+      'date': 'Data', 
+      'noResult': 'Nessun risultato', 
     },
     // Aggiungi altre lingue qui...
   };

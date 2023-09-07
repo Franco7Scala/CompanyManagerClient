@@ -39,6 +39,12 @@ class Themes {
     dialogTheme: _myDialogTheme(isDarkTheme),
 
     chipTheme: _myChipTheme(isDarkTheme),
+    
+    datePickerTheme: _myDataPickerTheme(isDarkTheme),
+
+    dataTableTheme: _myDataTableTheme(isDarkTheme),
+
+    popupMenuTheme: _myPopupMenuTheme(isDarkTheme),
 
   );
 
@@ -183,6 +189,57 @@ class Themes {
       color: isDarkTheme ? Colors.white : Colors.black,
       size: 18.0
     )
+  );
+
+  static DatePickerThemeData _myDataPickerTheme(bool isDarkTheme) => DatePickerThemeData(
+    backgroundColor: isDarkTheme ? Colors.black : Colors.white,
+    headerForegroundColor: isDarkTheme ? Colors.white : Colors.black,
+    dayForegroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        return isDarkTheme ? Colors.white : Colors.black;
+      },
+    ),
+    todayForegroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        return isDarkTheme ? Colors.black : Colors.white;
+      },
+    ),
+    todayBackgroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        return isDarkTheme ? Colors.white : Colors.black;
+      },
+    ),
+    weekdayStyle: TextStyle(
+      color: isDarkTheme ? Colors.white : Colors.black,
+    )
+
+  );
+
+  static DataTableThemeData _myDataTableTheme(bool isDarkTheme) => DataTableThemeData(
+    headingTextStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+      color: isDarkTheme ? Colors.white : Colors.black,
+    )
+  );
+
+  static PopupMenuThemeData _myPopupMenuTheme(bool isDarkTheme) => PopupMenuThemeData(
+    color: isDarkTheme ? Colors.grey[900] : Colors.white,
+    labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
+      (Set<MaterialState> states) {
+        /*
+        if (states.contains(MaterialState.pressed)) {
+          return TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.red, // Stile del testo quando premuto
+          );
+        }
+        */
+        return TextStyle(
+          color: isDarkTheme ? Colors.white : Colors.black, 
+        );
+      },
+    ),
   );
 
 }
