@@ -106,6 +106,17 @@ class AppLocalizations {
   String? get searchAll => _localizedValues[locale.languageCode]?['searchAll'];
   String? get or => _localizedValues[locale.languageCode]?['or'];
   String? get available => _localizedValues[locale.languageCode]?['available'];
+  String? get searchStuff => _localizedValues[locale.languageCode]?['searchStuff'];
+  String? get thresholdForWarning => _localizedValues[locale.languageCode]?['thresholdForWarning'];
+  String? get searchStuffByName => _localizedValues[locale.languageCode]?['searchStuffByName'];
+  String? get addStuff => _localizedValues[locale.languageCode]?['addStuff'];
+  String? get unitOfMeasure => _localizedValues[locale.languageCode]?['unitOfMeasure'];
+  String? get infoAddStuffButton => _localizedValues[locale.languageCode]?['infoAddStuffButton'];
+  String? get stuff => _localizedValues[locale.languageCode]?['stuff'];
+  String? get type => _localizedValues[locale.languageCode]?['type'];
+  String? get unload => _localizedValues[locale.languageCode]?['unload'];
+  String? get load => _localizedValues[locale.languageCode]?['load'];
+  String? get infoAddMovementStuffButton => _localizedValues[locale.languageCode]?['infoAddMovementStuffButton'];
   
 
   // mapping delle traduzioni
@@ -204,6 +215,17 @@ class AppLocalizations {
       'searchAll': 'Search all',
       'or': 'Or',
       'available': 'Available',
+      'searchStuff': 'Search stuff',
+      'thresholdForWarning': 'Threshold for warning',
+      'searchStuffByName': "Name of the stuff to search for",
+      'addStuff': 'Add stuff',
+      'unitOfMeasure': 'Unit of measure',
+      'infoAddStuffButton': 'In this panel you can enter the material present in the warehouse.',
+      'stuff': 'Stuff',
+      'type': 'Type',
+      'unload': 'Unload',
+      'load': 'Load',
+      'infoAddMovementStuffButton': 'In this panel you can download the material after using it.',
     },
     'it': {
       'login': 'Accedi',
@@ -299,6 +321,17 @@ class AppLocalizations {
       'searchAll': 'Cerca tutti',
       'or': 'Oppure',
       'available': 'Disponibile',
+      'searchStuff': 'Cerca materiale',
+      'thresholdForWarning': 'Soglia per avviso',
+      'searchStuffByName': "Nome del materiale da cercare",
+      'addStuff': 'Aggiungi materiale',
+      'unitOfMeasure': 'Unità di misura',
+      'infoAddStuffButton': 'In questo pannello puoi inserire il materiale presente nel magazzino.',
+      'stuff': 'Materiale',
+      'type': 'Tipo',
+      'unload': 'Scarica',
+      'load': 'Carica',
+      'infoAddMovementStuffButton': 'In questo pannello puoi scaricare il materiale dopo averlo utilizzato.',
     },
     // Aggiungi altre lingue qui...
   };

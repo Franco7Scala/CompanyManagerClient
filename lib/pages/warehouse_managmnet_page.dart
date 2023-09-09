@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-final selectedChipWarehouseProvider=StateProvider<int>((ref) => 0);
+final selectedChipWarehouseProvider=StateProvider<int>((ref) => -1);
 
 class WarehouseManagmentPage extends ConsumerWidget {
   const WarehouseManagmentPage({super.key});
