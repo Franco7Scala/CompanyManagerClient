@@ -125,7 +125,7 @@ class Themes {
   */
 
   static CardTheme _myCardTheme(bool isDarkTheme) => CardTheme(
-    color: isDarkTheme ? Colors.grey[900] : Colors.grey[300],
+    color: isDarkTheme ? Colors.grey[900] : Colors.grey[100],
   );
 
   static IconThemeData _myIconTheme(bool isDarkTheme) => IconThemeData(
@@ -180,14 +180,14 @@ class Themes {
     labelStyle: TextStyle(
       color: isDarkTheme ? Colors. white : Colors.black,
     ),
-    selectedColor: Colors.grey[400], //il colore del chip quando viene selezionato
+    selectedColor: Color.fromARGB(255, 212, 110, 133), //il colore del chip quando viene selezionato
     secondaryLabelStyle: const  TextStyle( //il colore del testo quando premo il chip 
       color: Colors.black,
     ),
     elevation: 5.0,
     iconTheme: IconThemeData(
       color: isDarkTheme ? Colors.white : Colors.black,
-      size: 18.0
+      size: 15.0
     )
   );
 
@@ -241,5 +241,6 @@ class Themes {
       },
     ),
   );
+
 
 }

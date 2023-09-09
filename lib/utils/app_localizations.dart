@@ -57,7 +57,6 @@ class AppLocalizations {
   String? get showCalendar => _localizedValues[locale.languageCode]?['showCalendar'];
   String? get daysThisMonth => _localizedValues[locale.languageCode]?['daysThisMonth'];
   String? get daysPreviousMonth => _localizedValues[locale.languageCode]?['daysPreviousMonth'];
-
   String? get addDay => _localizedValues[locale.languageCode]?['addDay'];
   String? get day => _localizedValues[locale.languageCode]?['day']; 
   String? get summary => _localizedValues[locale.languageCode]?['summary']; 
@@ -68,7 +67,46 @@ class AppLocalizations {
   String? get salary => _localizedValues[locale.languageCode]?['salary']; 
   String? get date => _localizedValues[locale.languageCode]?['date']; 
   String? get noResult => _localizedValues[locale.languageCode]?['noResult'];
-
+  String? get product => _localizedValues[locale.languageCode]?['product']; 
+  String? get movements => _localizedValues[locale.languageCode]?['movements']; 
+  String? get state => _localizedValues[locale.languageCode]?['state']; 
+  String? get receipts => _localizedValues[locale.languageCode]?['receipts']; 
+  String? get user => _localizedValues[locale.languageCode]?['user']; 
+  String? get termsOfPayment => _localizedValues[locale.languageCode]?['termsOfPayment']; 
+  String? get price => _localizedValues[locale.languageCode]?['price']; 
+  String? get discount => _localizedValues[locale.languageCode]?['discount']; 
+  String? get amount => _localizedValues[locale.languageCode]?['amount'];
+  String? get name => _localizedValues[locale.languageCode]?['name'];
+  String? get favourite => _localizedValues[locale.languageCode]?['favourite']; 
+  String? get addState => _localizedValues[locale.languageCode]?['addState']; 
+  String? get enterTheNameOfTheState => _localizedValues[locale.languageCode]?['enterTheNameOfTheState']; 
+  String? get infoStateButton => _localizedValues[locale.languageCode]?['infoStateButton']; 
+  String? get info => _localizedValues[locale.languageCode]?['info']; 
+  String? get quantity => _localizedValues[locale.languageCode]?['quantity']; 
+  String? get from => _localizedValues[locale.languageCode]?['from'];
+  String? get to => _localizedValues[locale.languageCode]?['to'];
+  String? get description => _localizedValues[locale.languageCode]?['description'];
+  String? get addMovement => _localizedValues[locale.languageCode]?['addMovement'];
+  String? get enterReasonForUnloading => _localizedValues[locale.languageCode]?['enterReasonForUnloading'];
+  String? get searchProduct => _localizedValues[locale.languageCode]?['searchProduct'];
+  String? get productName => _localizedValues[locale.languageCode]?['productName'];
+  String? get searchByProductName => _localizedValues[locale.languageCode]?['searchByProductName'];
+  String? get infoMovementButton => _localizedValues[locale.languageCode]?['infoMovementButton'];
+  String? get confirm => _localizedValues[locale.languageCode]?['confirm'];
+  String? get readyForUnloading => _localizedValues[locale.languageCode]?['readyForUnloading'];
+  String? get year => _localizedValues[locale.languageCode]?['year'];
+  String? get boxes => _localizedValues[locale.languageCode]?['boxes'];
+  String? get bottles => _localizedValues[locale.languageCode]?['bottles'];
+  String? get priceForPrivate => _localizedValues[locale.languageCode]?['priceForPrivate'];
+  String? get pricePerReseller => _localizedValues[locale.languageCode]?['pricePerReseller'];
+  String? get singleBarcode => _localizedValues[locale.languageCode]?['singleBarcode'];
+  String? get packageBarcode => _localizedValues[locale.languageCode]?['packageBarcode'];
+  String? get addYear => _localizedValues[locale.languageCode]?['addYear'];
+  String? get search => _localizedValues[locale.languageCode]?['search'];
+  String? get searchAll => _localizedValues[locale.languageCode]?['searchAll'];
+  String? get or => _localizedValues[locale.languageCode]?['or'];
+  String? get available => _localizedValues[locale.languageCode]?['available'];
+  
 
   // mapping delle traduzioni
   static const Map<String, Map<String, String>> _localizedValues = {
@@ -127,6 +165,45 @@ class AppLocalizations {
       'salary': 'Salary',   
       'date': 'Date', 
       'noResult': 'No result', 
+      'product': 'Products', 
+      'movements': 'Movements', 
+      'state': 'State', 
+      'receipts': 'Receipts', 
+      'user': 'User', 
+      'termsOfPayment': 'Terms of payment', 
+      'price': 'Price', 
+      'discount': 'Discount', 
+      'amount': 'Amount', 
+      'name': 'Name',
+      'favourite': 'Favourite',
+      'addState': 'Add state',
+      'enterTheNameOfTheState': 'Enter the name of the state',
+      'infoStateButton': 'In this panel you can create, edit and remove states of the products, the favorite will come displayed when you search of products, if you brand a state you mark it as "downloadable" (therefore the third little icon) who has the viewing permission only and product unloading can be used products in this state only for I unload.',
+      'info': 'Information',
+      'quantity': 'Quantity',
+      'from': 'From',
+      'to': 'To',
+      'description': 'Description',
+      'addMovement': 'Add movement',
+      'enterReasonForUnloading': 'Enter reason for unloading',
+      'searchProduct': 'Search product',
+      'productName': 'Name of product',
+      'searchByProductName': "Name of the product to search for",
+      'infoMovementButton': 'In this panel you can change the status of the products, enter the motivation and then look for the products to download by writing your initials of his name on the side, ti a list of products will appear kindred at the research, your then select by each product the quantity and the source and destination state.',
+      'confirm': 'Confirm',
+      'readyForUnloading': 'Ready for unloading',
+      'year': 'Year',
+      'boxes': 'Boxes',
+      'bottles': 'Bottles',
+      'priceForPrivate': 'Price for private',
+      'pricePerReseller': 'Price per reseller',
+      'singleBarcode': 'Single barcode',
+      'packageBarcode': 'Package barcode',
+      'addYear': 'Add year',
+      'search': 'Search',
+      'searchAll': 'Search all',
+      'or': 'Or',
+      'available': 'Available',
     },
     'it': {
       'login': 'Accedi',
@@ -183,7 +260,49 @@ class AppLocalizations {
       'salary': 'Salario',
       'date': 'Data', 
       'noResult': 'Nessun risultato', 
+      'product': 'Prodotti',
+      'movements': 'Movimenti',
+      'state': 'Stato',
+      'receipts': 'Ricevute',
+      'user': 'Utente', 
+      'termsOfPayment': 'Metodo di pagamento',
+      'price': 'Prezzo',
+      'discount': 'Sconto',
+      'amount': 'Totale',
+      'name': 'Nome',
+      'favourite': 'Preferito',
+      'addState': 'Aggiungi stato',
+      'enterTheNameOfTheState': 'Inserisci il nome dello stato',
+      'infoStateButton': 'In questo pannello puoi creare, modificare e rimuovere gli stati dei prodotti, il preferito verrà visualizzato quando fai la ricerca dei prodotti, se marchi uno stato lo marchi come "scaricabile" (dunque la terza iconcina) chi ha il solo permesso di visualizzazione e scarico prodotti potrà utilizzare i prodotti in tale stato solo per lo scarico.',
+      'info': 'Informazioni',
+      'quantity': 'Quantità',
+      'from': 'Da',
+      'to': 'A',
+      'description': 'Descrizione',
+      'addMovement': 'Aggiungi movimento',
+      'enterReasonForUnloading': 'Inserisci motivo di scarico',
+      'searchProduct': 'Cerca prodotto',
+      'productName': 'Nome del prodotto',
+      'searchByProductName': "Nome del prodotto da cercare",
+      'infoMovementButton': 'In questo pannello puoi cambiare lo stato dei prodotti, inserisci la motivazione e poi cerca i prodotti da scaricare scrivendo le iniziali del suo nome qui di fianco, ti apparirà una lista dei prodotti affini alla ricerca, tua successivamente seleziona per ogni prodotto la quantità e lo stato sorgente e destinazione.',
+      'confirm': 'Conferma',
+      'readyForUnloading': 'Pronti per essere scaricati',
+      'year': 'Anno',
+      'boxes': 'Cartoni',
+      'bottles': 'Bottiglie',
+      'priceForPrivate': 'Prezzo per privato',
+      'pricePerReseller': 'Prezzo per rivenditore',
+      'singleBarcode': 'Codice a barre singolo',
+      'packageBarcode': 'Codice a barre confezione',
+      'addYear': 'Aggiungi annata',
+      'search': 'Cerca',
+      'searchAll': 'Cerca tutti',
+      'or': 'Oppure',
+      'available': 'Disponibile',
     },
     // Aggiungi altre lingue qui...
   };
 }
+
+
+
