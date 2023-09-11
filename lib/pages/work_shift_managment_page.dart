@@ -1,7 +1,7 @@
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
-import 'package:company_manager_client/widgets/calendar.dart';
-import 'package:company_manager_client/widgets/list_work_shift_users.dart';
+import 'package:company_manager_client/widgets/for_work_shift_managent/calendar.dart';
+import 'package:company_manager_client/widgets/for_work_shift_managent/list_work_shift_users.dart';
 import 'package:company_manager_client/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

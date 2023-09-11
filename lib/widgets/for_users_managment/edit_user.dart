@@ -1,6 +1,6 @@
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
-import 'package:company_manager_client/widgets/add_user.dart';
+import 'package:company_manager_client/widgets/for_users_managment/add_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';

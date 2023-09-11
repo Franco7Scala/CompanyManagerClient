@@ -1,17 +1,16 @@
-import 'package:company_manager_client/model/product.dart';
+import 'package:company_manager_client/model/stuff.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
-import 'package:company_manager_client/widgets/add_year.dart';
-import 'package:company_manager_client/widgets/search_product.dart';
+import 'package:company_manager_client/widgets/for_stuffs_managment/search_stuff.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-final listOfProducts=[
-  Product("cklanlc", "ncasncka"),
+final listOfStuffs=[
+  Stuff("name", "quantity", "thresholdForWarning", "description"),
 ];
 
-class Products extends ConsumerWidget {
-  const Products({super.key});
+class Stuffs extends ConsumerWidget {
+  const Stuffs({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +24,7 @@ class Products extends ConsumerWidget {
           child: InkWell(
             onTap: () => showDialog(
               context: context, 
-              builder: (BuildContext buildContext) => const SearchProduct(),
+              builder: (BuildContext buildContext) => const SearchStuff(),
             ),
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
@@ -43,21 +42,25 @@ class Products extends ConsumerWidget {
             scrollDirection: Axis.horizontal,
             child: DataTable(
               columns: <DataColumn>[
-                DataColumn(label: Text(appLocalization.code!)),
                 DataColumn(label: Text(appLocalization.name!)),
-                DataColumn(label: Text(appLocalization.addYear!)),
+                DataColumn(label: Text(appLocalization.quantity!)),
+                DataColumn(label: Text(appLocalization.thresholdForWarning!)),
+                DataColumn(label: Text(appLocalization.description!)),
+                DataColumn(label: Text(appLocalization.edit!)),
               ],
               rows: List<DataRow>.generate(
-                listOfProducts .length, 
+                listOfStuffs .length, 
                 (index)  => DataRow(
                   cells: <DataCell> [
-                    DataCell(Text(listOfProducts[index].code.toString())),
-                    DataCell(Text(listOfProducts[index].name.toString())),
+                    DataCell(Text(listOfStuffs[index].name.toString())),
+                    DataCell(Text(listOfStuffs[index].quantity.toString())),
+                    DataCell(Text(listOfStuffs[index].thresholdForWarning.toString())),
+                    DataCell(Text(listOfStuffs[index].description.toString())),
                     DataCell(
                       IconButton(
                         onPressed: () => showDialog(
                           context: context, 
-                          builder: (BuildContext buildContext) => const AddYear(),
+                          builder: (BuildContext buildContext) => Container(),
                         ),
                         icon: const Icon(Iconsax.add),
                       )

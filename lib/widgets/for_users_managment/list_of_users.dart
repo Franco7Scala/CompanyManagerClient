@@ -1,19 +1,19 @@
 import 'package:company_manager_client/model/user.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
-import 'package:company_manager_client/widgets/edit_user_work_shift.dart';
+import 'package:company_manager_client/widgets/for_users_managment/edit_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-final listWorkShiftUsers=[
+final listOfUsers=[
   User(firstName: 'Andrea', lastName: 'Panebianco', username: 'anklnknac'),
   User(firstName: 'Claudia', lastName: 'benincasa', username: 'anksdvslnknac'),
   User(firstName: 'Pina', lastName: 'Salvati', username: 'cvwrvv')
 ];
 
-class ListWorkShiftUsers extends ConsumerWidget {
-  const ListWorkShiftUsers({super.key});
+class ListOfUsers extends ConsumerWidget {
+  const ListOfUsers({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,13 +22,13 @@ class ListWorkShiftUsers extends ConsumerWidget {
     return ResponsiveLayout.isMobile(context) ? 
       ListView.builder(
         shrinkWrap: true,
-        itemCount: listWorkShiftUsers.length,
+        itemCount: listOfUsers.length,
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
               leading: Text((index+1).toString(), style: const TextStyle(fontSize: 15.0),),
-              title: Text("${listWorkShiftUsers[index].firstName} ${listWorkShiftUsers[index].lastName}"),
-              subtitle: Text(listWorkShiftUsers[index].username),
+              title: Text("${listOfUsers[index].firstName} ${listOfUsers[index].lastName}"),
+              subtitle: Text(listOfUsers[index].username),
               trailing: Wrap(
                 alignment: WrapAlignment.end,
                 spacing: 10.0,
@@ -36,12 +36,16 @@ class ListWorkShiftUsers extends ConsumerWidget {
                   IconButton(
                     onPressed: () => showDialog(
                       context: context, 
-                      builder: (BuildContext context) => const EditUserWorkShift(),
+                      builder: (BuildContext context) => const EditUser(),
                     ), 
                     tooltip: appLocalization.editUser,
                     icon: const Icon(Iconsax.edit,)
                   ),
-                  
+                  IconButton(
+                    onPressed: () {}, 
+                    tooltip: appLocalization.deleteUser,
+                    icon: const Icon(Iconsax.trash, color: Colors.red,)
+                  )
                 ],
               ),
             ),
@@ -66,22 +70,21 @@ class ListWorkShiftUsers extends ConsumerWidget {
                 const Expanded(
                   child: Text("Username", style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
-                Expanded(
-                  child: Text(appLocalization.daysThisMonth!, style: const TextStyle(fontWeight: FontWeight.bold),),
-                ),
-                Expanded(
-                  child: Text(appLocalization.daysPreviousMonth!, style: const TextStyle(fontWeight: FontWeight.bold),),
-                ),
                 const IconButton(
                   onPressed: null, 
                   icon: Icon(Iconsax.edit, color: Colors.transparent,)
                 ),
+                const SizedBox(width: 10.0,),
+                const IconButton(
+                  onPressed: null, 
+                  icon: Icon(Iconsax.trash, color: Colors.transparent,)
+                )
               ],
             ),
           ),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: listWorkShiftUsers.length,
+            itemCount: listOfUsers.length,
             itemBuilder: (context, index) {
               return Card(
                 child: Padding(
@@ -91,28 +94,28 @@ class ListWorkShiftUsers extends ConsumerWidget {
                       Text((index+1).toString()),
                       const SizedBox(width: 40.0,),
                       Expanded(
-                        child: Text(listWorkShiftUsers[index].firstName),
+                        child: Text(listOfUsers[index].firstName),
                       ),
                       Expanded(
-                        child: Text(listWorkShiftUsers[index].lastName),
+                        child: Text(listOfUsers[index].lastName),
                       ),
                       Expanded(
-                        child: Text(listWorkShiftUsers[index].username),
-                      ),
-                      const Expanded(
-                        child: Text("0"),
-                      ),
-                      const Expanded(
-                        child: Text("0"),
+                        child: Text(listOfUsers[index].username),
                       ),
                       IconButton(
                         onPressed: () => showDialog(
                           context: context, 
-                          builder: (BuildContext context) => const EditUserWorkShift(),
+                          builder: (BuildContext context) => const EditUser(),
                         ),
                         tooltip: appLocalization.editUser,
                         icon: const Icon(Iconsax.edit)
                       ),
+                      const SizedBox(width: 10.0,),
+                      IconButton(
+                        onPressed: () {}, 
+                        tooltip: appLocalization.deleteUser,
+                        icon: const Icon(Iconsax.trash, color: Colors.red,)
+                      )
                     ],
                   ),
                 )

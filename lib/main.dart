@@ -1,5 +1,5 @@
 import 'package:company_manager_client/pages/dashboard_page.dart';
-import 'package:company_manager_client/pages/initial_page.dart';
+//import 'package:company_manager_client/pages/initial_page.dart';
 import 'package:company_manager_client/utils/constants.dart';
 import 'package:company_manager_client/utils/themes.dart';
 import 'package:company_manager_client/widgets/change_theme_button.dart';
