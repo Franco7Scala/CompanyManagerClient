@@ -1,4 +1,4 @@
-import 'package:company_manager_client/model/user.dart';
+import 'package:company_manager_client/models/user.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/for_work_shift_managent/edit_user_work_shift.dart';
@@ -7,9 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
 final listWorkShiftUsers=[
-  User(firstName: 'Andrea', lastName: 'Panebianco', username: 'anklnknac'),
+  /* User(firstName: 'Andrea', lastName: 'Panebianco', username: 'anklnknac'),
   User(firstName: 'Claudia', lastName: 'benincasa', username: 'anksdvslnknac'),
-  User(firstName: 'Pina', lastName: 'Salvati', username: 'cvwrvv')
+  User(firstName: 'Pina', lastName: 'Salvati', username: 'cvwrvv') */
 ];
 
 class ListWorkShiftUsers extends ConsumerWidget {

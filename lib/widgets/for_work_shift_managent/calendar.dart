@@ -1,4 +1,4 @@
-import 'package:company_manager_client/model/event.dart';
+import 'package:company_manager_client/models/event.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/change_theme_button.dart';
 import 'package:flutter/material.dart';

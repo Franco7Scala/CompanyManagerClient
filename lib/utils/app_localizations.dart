@@ -44,14 +44,14 @@ class AppLocalizations {
   String? get edit => _localizedValues[locale.languageCode]?['edit'];
   String? get delete => _localizedValues[locale.languageCode]?['delete'];
   String? get code => _localizedValues[locale.languageCode]?['code'];
-  String? get dailyWage => _localizedValues[locale.languageCode]?['dailyWage'];
+  String? get salaryPerDay => _localizedValues[locale.languageCode]?['salaryPerDay'];
   String? get cancel => _localizedValues[locale.languageCode]?['cancel'];
-  String? get capacity => _localizedValues[locale.languageCode]?['capacity'];
+  String? get capability => _localizedValues[locale.languageCode]?['capability'];
   String? get addProduct => _localizedValues[locale.languageCode]?['addProduct'];
   String? get addStuffs => _localizedValues[locale.languageCode]?['addStuffs'];
   String? get products => _localizedValues[locale.languageCode]?['products'];
   String? get stuffs => _localizedValues[locale.languageCode]?['stuffs'];
-  String? get addCapacity => _localizedValues[locale.languageCode]?['addCapacity'];
+  String? get addCapability => _localizedValues[locale.languageCode]?['addCapability'];
   String? get editUser => _localizedValues[locale.languageCode]?['editUser'];
   String? get deleteUser => _localizedValues[locale.languageCode]?['deleteUser'];
   String? get showCalendar => _localizedValues[locale.languageCode]?['showCalendar'];
@@ -117,6 +117,8 @@ class AppLocalizations {
   String? get unload => _localizedValues[locale.languageCode]?['unload'];
   String? get load => _localizedValues[locale.languageCode]?['load'];
   String? get infoAddMovementStuffButton => _localizedValues[locale.languageCode]?['infoAddMovementStuffButton'];
+  String? get doYouWantToRemove => _localizedValues[locale.languageCode]?['doYouWantToRemove'];
+  String? get fieldCannotEmpty => _localizedValues[locale.languageCode]?['fieldCannotEmpty'];
   
 
   // mapping delle traduzioni
@@ -153,14 +155,14 @@ class AppLocalizations {
       "edit": 'Edit',
       "delete": 'Delete',
       'code' : 'Code',
-      'dailyWage' : 'Daily wage',
+      'salaryPerDay' : 'Salary per day',
       'cancel' : 'Cancel',
-      'capacity': 'Capacity',
+      'capability': 'Capability',
       'addProduct': 'Add product',
       'addStuffs': 'Add stuffs',
       'products': 'Products',
       'stuffs': 'Stuffs',
-      'addCapacity': 'Add capacity',
+      'addCapability': 'Add capability',
       'editUser': 'Edit user',
       'deleteUser': 'Delete user',
       'showCalendar': 'Show calendar',
@@ -226,6 +228,8 @@ class AppLocalizations {
       'unload': 'Unload',
       'load': 'Load',
       'infoAddMovementStuffButton': 'In this panel you can download the material after using it.',
+      'doYouWantToRemove': 'Do you want to remove',
+      'fieldCannotEmpty': 'Field can\'t be empty',
     },
     'it': {
       'login': 'Accedi',
@@ -259,14 +263,14 @@ class AppLocalizations {
       "edit": 'Modifica',
       "delete": 'Elimina',
       'code' : 'Codice',
-      'dailyWage' : 'Salario giornaliero',
+      'salaryPerDay' : 'Salario giornaliero',
       'cancel' : 'Annulla',
-      'capacity': 'Capacità',
+      'capability': 'Capacità',
       'addProduct': 'Aggiungi prodotto',
       'addStuffs': 'Aggiungi materiale',
       'products': 'Prodotti',
       'stuffs': 'Materiali',
-      'addCapacity': 'Aggiungi capacità',
+      'addCapability': 'Aggiungi capacità',
       'editUser': 'Modifica utente',
       'deleteUser': 'Elimina utente',
       'showCalendar': 'Mostra calendario',
@@ -332,6 +336,8 @@ class AppLocalizations {
       'unload': 'Scarica',
       'load': 'Carica',
       'infoAddMovementStuffButton': 'In questo pannello puoi scaricare il materiale dopo averlo utilizzato.',
+      'doYouWantToRemove': 'Vuoi eliminare',
+      'fieldCannotEmpty': 'Il campo non può essere vuoto',
     },
     // Aggiungi altre lingue qui...
   };

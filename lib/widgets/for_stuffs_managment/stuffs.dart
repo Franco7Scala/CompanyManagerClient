@@ -1,4 +1,4 @@
-import 'package:company_manager_client/model/stuff.dart';
+import 'package:company_manager_client/models/stuff.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/search_stuff.dart';
 import 'package:flutter/material.dart';

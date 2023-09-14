@@ -1,16 +1,22 @@
-import 'package:company_manager_client/model/user.dart';
+import 'package:company_manager_client/main.dart';
+import 'package:company_manager_client/models/user.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
+import 'package:company_manager_client/utils/constants.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
+import 'package:company_manager_client/widgets/for_users_managment/delete_user.dart';
 import 'package:company_manager_client/widgets/for_users_managment/edit_user.dart';
+import 'package:company_manager_client/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-final listOfUsers=[
-  User(firstName: 'Andrea', lastName: 'Panebianco', username: 'anklnknac'),
-  User(firstName: 'Claudia', lastName: 'benincasa', username: 'anksdvslnknac'),
-  User(firstName: 'Pina', lastName: 'Salvati', username: 'cvwrvv')
-];
+final listOfUsersProvider=FutureProvider<List<User>>((ref) async {
+  await Future.delayed(const Duration(seconds: 1));
+  final dio=ref.watch(dioProvider);
+  final response=await dio.get("${Constants.baseUrl}/users");
+  final data = response.data;
+  return List<User>.from(data.map((userJson) => User.fromJson(userJson)));
+}); 
 
 class ListOfUsers extends ConsumerWidget {
   const ListOfUsers({super.key});
@@ -18,14 +24,84 @@ class ListOfUsers extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appLocalization=ref.watch(AppLocalizations.providers);
-    
-    return ResponsiveLayout.isMobile(context) ? 
-      ListView.builder(
-        shrinkWrap: true,
-        itemCount: listOfUsers.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
+    final listOfUsers=ref.watch(listOfUsersProvider);
+
+    return listOfUsers.when(
+      data: (users) { 
+        return Card(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              dividerThickness: 1.0,
+              columnSpacing: ResponsiveLayout.isDesktop(context) ? 100.0 : null,
+              columns: <DataColumn>[
+                const DataColumn(label: Text("N.")),
+                DataColumn(label: Text(appLocalization.firstName!)),
+                DataColumn(label: Text(appLocalization.lastName!)),
+                const DataColumn(label: Text("Username")),
+                DataColumn(label: Center(child: Text(appLocalization.edit!))),
+                DataColumn(label: Center(child: Text(appLocalization.delete!))),
+              ],
+              rows: List<DataRow>.generate(
+                users.length, 
+                (index)  => DataRow(
+                  cells: <DataCell> [
+                    DataCell(Text((index+1).toString())),
+                    DataCell(Text(users[index].firstName.toString())),
+                    DataCell(Text(users[index].lastName.toString())),
+                    DataCell(Text(users[index].username.toString())),
+                    DataCell(
+                      Center(
+                        child: IconButton(
+                          onPressed: users[index].id != 1 ? () => showDialog(
+                            context: context, 
+                            builder: (BuildContext buildContext) => EditUser(user: users[index],),
+                          )
+                          :
+                          null,
+                          //tooltip: appLocalization.editUser,
+                          icon: const Icon(Iconsax.edit_2),
+                        ),
+                      )
+                    ),
+                    DataCell(
+                      Center(
+                        child: IconButton(
+                          onPressed: users[index].id != 1 ? () => showDialog(
+                            context: context, 
+                            builder: (BuildContext buildContext) => DeleteUser(user: users[index],),
+                          )
+                          :
+                          null,
+                          //tooltip: appLocalization.deleteUser,
+                          icon: const Icon(Iconsax.trash),
+                        ),
+                      )
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      loading: () => const LoadingWidget(),
+      error: ((error, stackTrace) => Text(error.toString())),
+    );
+      
+      
+  }
+}
+
+/*
+
+//layout for mobile
+      Card(
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: listOfUsers.length,
+          itemBuilder: (context, index) {
+            return ListTile(
               leading: Text((index+1).toString(), style: const TextStyle(fontSize: 15.0),),
               title: Text("${listOfUsers[index].firstName} ${listOfUsers[index].lastName}"),
               subtitle: Text(listOfUsers[index].username),
@@ -39,21 +115,26 @@ class ListOfUsers extends ConsumerWidget {
                       builder: (BuildContext context) => const EditUser(),
                     ), 
                     tooltip: appLocalization.editUser,
-                    icon: const Icon(Iconsax.edit,)
+                    icon: const Icon(Iconsax.user_edit4)
                   ),
                   IconButton(
                     onPressed: () {}, 
                     tooltip: appLocalization.deleteUser,
-                    icon: const Icon(Iconsax.trash, color: Colors.red,)
+                    icon: const Icon(Iconsax.trash)
                   )
                 ],
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       )
-      : 
-      Column(
+
+*/
+
+
+/*
+
+Column(
         children: [
           Container(
             margin: const EdgeInsets.only(left: 16.0, right: 16.0),
@@ -124,5 +205,5 @@ class ListOfUsers extends ConsumerWidget {
           ),
         ],
       );
-  }
-}
+
+*/

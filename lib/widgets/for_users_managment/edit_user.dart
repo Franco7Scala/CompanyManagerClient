@@ -1,39 +1,86 @@
+import 'package:company_manager_client/main.dart';
+import 'package:company_manager_client/models/capability_model.dart';
+import 'package:company_manager_client/models/user.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
+import 'package:company_manager_client/utils/constants.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/for_users_managment/add_user.dart';
+import 'package:company_manager_client/widgets/for_users_managment/list_of_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
 //final selectedCapacityProvider=StateProvider<int>((ref) => 0);
 
-final addedCapacities=[
-  "mocpamlc",
-  "aacsacasc",
-];
+////put request using provider riverpod
+final editUserProvider=FutureProvider.autoDispose.family<void, User>((ref, user) async {
+  final dio=ref.watch(dioProvider);
+  try {
+    final response=await dio.put(
+      "${Constants.baseUrl}/users/editUser", 
+      data: user.toJson(),
+    );
+    if(response.statusCode==200){
+      debugPrint("OK");
+    }
+    else{
+      debugPrint("BAD REQUEST");
+    }
+    ref.refresh(listOfUsersProvider);
+  }
+  catch(e) {
+    debugPrint("$e");
+  }
+});
 
 class EditUser extends ConsumerStatefulWidget {
-  const EditUser({super.key});
+  User user;
+
+  EditUser({
+    required this.user,
+    super.key
+  });
 
   @override
   EditUserState createState() => EditUserState();
 }
 
 class EditUserState extends ConsumerState<EditUser> {
-  final firstNameController=TextEditingController();
-  final lastNameController=TextEditingController();
-  final usernameController=TextEditingController();
-  final emailController=TextEditingController();
-  final passwordController=TextEditingController();
-  final codeController=TextEditingController();
-  final dailyWageController=TextEditingController();
+  //key for validate form
+  final _formKey = GlobalKey<FormState>();
+
+  //field's controller
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController usernameController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  late TextEditingController codeController;
+  late TextEditingController salaryPerDayController;
+
+  //default value for salary per day
+  late double? valueSalaryPerDay;
+
+  //var for show/hide password
   bool _hidePassword = true;
   bool _isTyping = false;
 
   @override
   void initState() {
     super.initState();
+    
+    valueSalaryPerDay=widget.user.salaryPerDay;
+
+    firstNameController=TextEditingController(text: widget.user.firstName);
+    lastNameController=TextEditingController(text: widget.user.lastName);
+    usernameController=TextEditingController(text: widget.user.username);
+    emailController=TextEditingController(text: widget.user.email);
+    passwordController=TextEditingController(text: widget.user.password);
+    codeController=TextEditingController(text: widget.user.code);
+    salaryPerDayController=TextEditingController(text: valueSalaryPerDay!=null ? valueSalaryPerDay.toString() : null);
+
     passwordController.addListener(_onTextChanged);
+
   }
 
   void _onTextChanged() {
@@ -45,16 +92,24 @@ class EditUserState extends ConsumerState<EditUser> {
   @override
   void dispose() {
     passwordController.removeListener(_onTextChanged);
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
+    codeController.dispose();
+    salaryPerDayController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    //provider
     final appLocalization=ref.watch(AppLocalizations.providers);
-    final selectedCapacity=ref.watch(selectedCapacityProvider);
+    final selectedCapacity=ref.watch(selectedCapabilityProvider);
 
-    final  listOfCapacity = <String>[
+    //enum capability??????
+    final  listOfCapability = <String>[
       appLocalization.addProduct!,
       appLocalization.addStuffs!,
       appLocalization.products!,
@@ -63,18 +118,135 @@ class EditUserState extends ConsumerState<EditUser> {
       appLocalization.workShift!,
     ];
 
-    TextField myTextField(TextEditingController controller, String label){
-      return TextField(
-        controller: controller,
+    //pop up menu for choose capability
+    PopupMenuButton addCapabilityPopupButton() => PopupMenuButton(
+      icon: const Icon(Iconsax.add),
+      initialValue: selectedCapacity,
+      //position: PopupMenuPosition.under,
+      //offset: const Offset(0, 10.0),
+      tooltip: appLocalization.addCapability,
+      // Callback that sets the selected popup menu item.
+      onSelected: (index) {
+        ref.read(selectedCapabilityProvider.notifier).state=selectedCapacity;
+      },
+      itemBuilder: (BuildContext context) => List<PopupMenuEntry>.generate(
+        listOfCapability.length,
+        (index) => PopupMenuItem(
+          onTap: () {
+            setState(() {
+              widget.user.capability.add(CapabilityModel(name: listOfCapability[index]));
+            });
+          },
+          child: Text(listOfCapability[index]),
+        ),
+      ),
+    );
+
+    //widget to show user capability and you can add and remove it
+    Container myCapability() => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.grey),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [ 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(appLocalization.capability!, style: const TextStyle(fontWeight: FontWeight.bold),),
+                addCapabilityPopupButton(),
+              ],
+            ),
+            const SizedBox(height: 10.0,),
+            SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                  widget.user.capability.length,
+                  (index) {
+                    return Column(
+                      children: [
+                        const Divider(),
+                        Row(
+                          children: <Widget>[
+                            Expanded(child: Text(widget.user.capability[index].name)),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  widget.user.capability.removeAt(index);
+                                });
+                              },
+                              icon: const Icon(Iconsax.trash),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                ),
+              ),
+            ),    
+          ],
+        ),
+      ),
+    );
+
+    //field's controller
+    final myTextFormFields = [
+      TextFormField(
+        controller: firstNameController,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: label,
+          labelText: appLocalization.firstName,
         ),
-      );  
-    }
-
-    TextField myPasswordTextField(){
-      return TextField(
+        validator: (firstName) {
+          if (firstName == null || firstName.isEmpty) {
+            return appLocalization.fieldCannotEmpty;
+          }
+          return null;
+        },
+      ),
+      const SizedBox(height: 20.0,),
+      TextFormField(
+        controller: lastNameController,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: appLocalization.lastName,
+        ),
+        validator: (lastName) {
+          if (lastName == null || lastName.isEmpty) {
+            return appLocalization.fieldCannotEmpty;
+          }
+          return null;
+        },
+      ),
+      const SizedBox(height: 20.0,),
+      TextFormField(
+        controller: usernameController,
+        decoration: const InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: 'Username',
+        ),
+        validator: (username) {
+          if (username == null || username.isEmpty) {
+            return appLocalization.fieldCannotEmpty;
+          }
+          return null;
+        },
+      ),
+      const SizedBox(height: 20.0,),
+      TextFormField(
+        controller: emailController,
+        decoration: const InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: 'Email',
+        ),
+      ),
+      const SizedBox(height: 20.0,),
+      TextFormField(
         controller: passwordController,
         obscureText: _hidePassword,
         decoration: InputDecoration(
@@ -93,111 +265,54 @@ class EditUserState extends ConsumerState<EditUser> {
             : 
             null,
         ),
-      );
-    }
-
-    PopupMenuButton addCapacitiesButton() => PopupMenuButton(
-      icon: const Icon(Iconsax.add),
-      initialValue: selectedCapacity,
-      //position: PopupMenuPosition.under,
-      //offset: const Offset(0, 10.0),
-      tooltip: appLocalization.addCapacity,
-      // Callback that sets the selected popup menu item.
-      onSelected: (index) {
-        ref.read(selectedCapacityProvider.notifier).state=selectedCapacity;
-      },
-      itemBuilder: (BuildContext context) => List<PopupMenuEntry>.generate(
-        listOfCapacity.length,
-        (index) => PopupMenuItem(
-          onTap: () {},
-          child: Text(listOfCapacity[index]),
+        validator: (password) {
+          if (password == null || password.isEmpty) {
+            return appLocalization.fieldCannotEmpty;
+          }
+          return null;
+        },
+      ),
+      const SizedBox(height: 20.0,),
+      TextFormField(
+        controller: codeController,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: appLocalization.code,
         ),
       ),
-    );
-
-    Container myCapacity() => Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.grey),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(appLocalization.capacity!, style: const TextStyle(fontWeight: FontWeight.bold),),
-                addCapacitiesButton(),
-              ],
-            ),
-            const SizedBox(height: 10.0,),
-            
-            SingleChildScrollView(
-              child: Column(
-                children: List.generate(
-                  addedCapacities.length, 
-                  (index) {
-                    return Column(
-                      children: [
-                        const Divider(),
-                        Row(
-                          children: <Widget>[
-                            Expanded(child: Text(addedCapacities[index])),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Iconsax.trash),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                ),
-              ),
-            ),
-            
-          ],
+      const SizedBox(height: 20.0,),
+      TextFormField(
+        controller: salaryPerDayController,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: appLocalization.salaryPerDay,
         ),
       ),
-    );
+      const SizedBox(height: 20.0,),
+    ];
 
+    //"container widget"
     return AlertDialog(
       title: Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
-        child: Text(appLocalization.editUser!, style: const TextStyle(fontSize: 30.0),),
+        child: Row(
+          children: [
+            const Icon(Iconsax.user_edit, size: 30.0,),
+            const SizedBox(width: 10.0,),
+            Text(appLocalization.editUser!, style: const TextStyle(fontSize: 30.0),),
+          ],
+        ),
       ),
       scrollable: true,
       content: SizedBox(
         width: !ResponsiveLayout.isMobile(context) ? 800.0 : 300.0,
         child: ResponsiveLayout.isMobile(context) ?
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              
-              myTextField(firstNameController, appLocalization.firstName!),
-              const SizedBox(height: 20.0,),
-          
-              myTextField(lastNameController, appLocalization.lastName!),
-              const SizedBox(height: 20.0,),
-          
-              myTextField(emailController, "Email"),
-              const SizedBox(height: 20.0,),
-          
-              myPasswordTextField(),
-              const SizedBox(height: 20.0,),
-    
-              myTextField(codeController, appLocalization.code!),
-              const SizedBox(height: 20.0,),
-          
-              myTextField(dailyWageController, appLocalization.dailyWage!),
-              const SizedBox(height: 20.0,),
-  
-              myCapacity(),
-            ],
+          Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: List.generate(myTextFormFields.length, (index) => myTextFormFields[index])
+            ),
           )
           : 
           //desktop layout
@@ -206,28 +321,11 @@ class EditUserState extends ConsumerState<EditUser> {
             children: [
               //fisrt column
               Expanded(
-                child: Column(
-                  children: <Widget>[
-        
-                    myTextField(firstNameController, appLocalization.firstName!),
-                    const SizedBox(height: 20.0,),
-                
-                    myTextField(lastNameController, appLocalization.lastName!),
-                    const SizedBox(height: 20.0,),
-                
-                    myTextField(emailController, "Email"),
-                    const SizedBox(height: 20.0,),
-                
-                    myPasswordTextField(),
-                    const SizedBox(height: 20.0,),
-        
-                    myTextField(codeController, appLocalization.code!),
-                    const SizedBox(height: 20.0,),
-                
-                    myTextField(dailyWageController, appLocalization.dailyWage!),
-                    const SizedBox(height: 20.0,),
-                    
-                  ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: List.generate(myTextFormFields.length, (index) => myTextFormFields[index]),
+                  ),
                 ),
               ),
               const SizedBox(width: 20.0,),
@@ -236,16 +334,15 @@ class EditUserState extends ConsumerState<EditUser> {
                 child: Column(
                   children: <Widget>[
         
-                    myCapacity(),
+                    myCapability(),
         
                   ],
                 ),
               )
             ],
           ),
-        
       ),
-
+      //action button
       actions: <Widget>[
         OutlinedButton(
           onPressed: () {
@@ -254,12 +351,24 @@ class EditUserState extends ConsumerState<EditUser> {
           child: Text(appLocalization.cancel!),
         ),
         SizedBox(
-          width: 5.0,
-          height: MediaQuery.of(context).size.width <= 366.0 ? 10.0 : null, 
+          height: MediaQuery.of(context).size.width <= 382.0 ? 10.0 : null, 
         ),
         TextButton(
           onPressed: () {
-            Navigator.pop(context);
+            //validate form first
+            if (_formKey.currentState!.validate()) {
+              //edit user
+              widget.user.firstName=firstNameController.text;
+              widget.user.lastName=lastNameController.text;
+              widget.user.username=usernameController.text;
+              widget.user.password=passwordController.text;
+              widget.user.code=codeController.text;
+              widget.user.salaryPerDay=double.tryParse(salaryPerDayController.text);
+              //call provider for add user request post with dio
+              ref.watch(editUserProvider(widget.user));
+              //back to list of user
+              Navigator.pop(context);
+            }
           },
           child: Text(appLocalization.editUser!),
         )

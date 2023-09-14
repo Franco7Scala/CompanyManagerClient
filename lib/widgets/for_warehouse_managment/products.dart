@@ -1,4 +1,4 @@
-import 'package:company_manager_client/model/product.dart';
+import 'package:company_manager_client/models/product.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/widgets/for_warehouse_managment/add_year.dart';
 import 'package:company_manager_client/widgets/for_warehouse_managment/search_product.dart';

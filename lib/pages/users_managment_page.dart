@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-final showListofUsersProvider=StateProvider<int>((ref) => -1);
+final showListOfUsersProvider=StateProvider<int>((ref) => -1);
 
 class UserManagmentPage extends ConsumerWidget {
   const UserManagmentPage({super.key});
@@ -15,7 +15,7 @@ class UserManagmentPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appLocalization=ref.watch(AppLocalizations.providers);
-    final showListOfUsers=ref.watch(showListofUsersProvider);
+    final showListOfUsers=ref.watch(showListOfUsersProvider);
     
     return Scaffold(
 
@@ -52,16 +52,16 @@ class UserManagmentPage extends ConsumerWidget {
               selected: showListOfUsers==0,
               onSelected: (value) {
                 if(showListOfUsers==0){
-                  ref.read(showListofUsersProvider.notifier).state=-1;
+                  ref.read(showListOfUsersProvider.notifier).state=-1;
                 }
                 else {
-                  ref.read(showListofUsersProvider.notifier).state=0;
+                  ref.read(showListOfUsersProvider.notifier).state=0;
                 }
               }
             ),
 
             Visibility(
-              visible: showListOfUsers==0,
+              visible: showListOfUsers!=-1,
               child: const SizedBox(height: 30.0),
             ),
             

@@ -3,8 +3,11 @@ import 'package:company_manager_client/pages/dashboard_page.dart';
 import 'package:company_manager_client/utils/constants.dart';
 import 'package:company_manager_client/utils/themes.dart';
 import 'package:company_manager_client/widgets/change_theme_button.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final dioProvider=Provider((ref) => Dio());
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

@@ -1,4 +1,4 @@
-import 'package:company_manager_client/model/receipt.dart';
+import 'package:company_manager_client/models/receipt.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

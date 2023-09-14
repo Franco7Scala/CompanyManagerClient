@@ -1,4 +1,4 @@
-import 'package:company_manager_client/model/stato.dart';
+import 'package:company_manager_client/models/stato.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:flutter/material.dart';
