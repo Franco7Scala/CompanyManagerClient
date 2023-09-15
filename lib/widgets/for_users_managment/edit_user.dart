@@ -26,6 +26,7 @@ final editUserProvider=FutureProvider.autoDispose.family<void, User>((ref, user)
     else{
       debugPrint("BAD REQUEST");
     }
+    // ignore: unused_result
     ref.refresh(listOfUsersProvider);
   }
   catch(e) {
@@ -33,6 +34,7 @@ final editUserProvider=FutureProvider.autoDispose.family<void, User>((ref, user)
   }
 });
 
+// ignore: must_be_immutable
 class EditUser extends ConsumerStatefulWidget {
   User user;
 
@@ -107,6 +109,24 @@ class EditUserState extends ConsumerState<EditUser> {
     //provider
     final appLocalization=ref.watch(AppLocalizations.providers);
     final selectedCapacity=ref.watch(selectedCapabilityProvider);
+    final listOfUsers=ref.watch(listOfUsersProvider);
+
+    //username to match for form validate
+    List<String> usernameAlreadyUsed=[];
+    
+    listOfUsers.maybeWhen(
+      data: (users) {
+        for(User user in users) {
+          usernameAlreadyUsed.add(user.username!);
+        }
+        for(String username in usernameAlreadyUsed){
+          if(username==widget.user.username){
+            usernameAlreadyUsed.remove(username);
+          }
+        }
+      },
+      orElse: () => null,
+    );
 
     //enum capability??????
     final  listOfCapability = <String>[
@@ -116,6 +136,15 @@ class EditUserState extends ConsumerState<EditUser> {
       appLocalization.stuffs!,
       appLocalization.users!,
       appLocalization.workShift!,
+    ];
+
+    final  nameOfCapability = <String>[
+      "add product",
+      "add stuffs",
+      "products",
+      "stuffs",
+      "users",
+      "work shift",
     ];
 
     //pop up menu for choose capability
@@ -134,7 +163,7 @@ class EditUserState extends ConsumerState<EditUser> {
         (index) => PopupMenuItem(
           onTap: () {
             setState(() {
-              widget.user.capability.add(CapabilityModel(name: listOfCapability[index]));
+              widget.user.capabilityList!.add(CapabilityModel(name: nameOfCapability[index], value: nameOfCapability[index]));
             });
           },
           child: Text(listOfCapability[index]),
@@ -165,18 +194,26 @@ class EditUserState extends ConsumerState<EditUser> {
             SingleChildScrollView(
               child: Column(
                 children: List.generate(
-                  widget.user.capability.length,
+                  widget.user.capabilityList!.length,
                   (index) {
                     return Column(
                       children: [
                         const Divider(),
                         Row(
                           children: <Widget>[
-                            Expanded(child: Text(widget.user.capability[index].name)),
+                            Expanded(child: Text(
+                              widget.user.capabilityList![index].name=="add product" ? appLocalization.addProduct! :
+                              widget.user.capabilityList![index].name=="add stuffs" ? appLocalization.addStuffs! :
+                              widget.user.capabilityList![index].name=="products" ? appLocalization.products! :
+                              widget.user.capabilityList![index].name=="stuffs" ? appLocalization.stuffs! :
+                              widget.user.capabilityList![index].name=="users" ? appLocalization.users! :
+                              widget.user.capabilityList![index].name=="work shift" ? appLocalization.workShift! :
+                              ""
+                            )),
                             IconButton(
                               onPressed: () {
                                 setState(() {
-                                  widget.user.capability.removeAt(index);
+                                  widget.user.capabilityList!.removeAt(index);
                                 });
                               },
                               icon: const Icon(Iconsax.trash),
@@ -196,6 +233,7 @@ class EditUserState extends ConsumerState<EditUser> {
 
     //field's controller
     final myTextFormFields = [
+      //text field for first name
       TextFormField(
         controller: firstNameController,
         decoration: InputDecoration(
@@ -210,6 +248,7 @@ class EditUserState extends ConsumerState<EditUser> {
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for last name
       TextFormField(
         controller: lastNameController,
         decoration: InputDecoration(
@@ -224,28 +263,36 @@ class EditUserState extends ConsumerState<EditUser> {
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for username
       TextFormField(
         controller: usernameController,
         decoration: const InputDecoration(
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(),
           labelText: 'Username',
         ),
         validator: (username) {
           if (username == null || username.isEmpty) {
             return appLocalization.fieldCannotEmpty;
           }
+          for(String u in usernameAlreadyUsed){
+            if(username==u){
+              return appLocalization.usernameAlreadyUsed!;
+            }
+          }
           return null;
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for email
       TextFormField(
         controller: emailController,
         decoration: const InputDecoration(
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(),
           labelText: 'Email',
         ),
       ),
       const SizedBox(height: 20.0,),
+      //text field for password
       TextFormField(
         controller: passwordController,
         obscureText: _hidePassword,
@@ -269,10 +316,14 @@ class EditUserState extends ConsumerState<EditUser> {
           if (password == null || password.isEmpty) {
             return appLocalization.fieldCannotEmpty;
           }
+          if(password.length < 8){
+            return appLocalization.passwordMustContain8Caracter;
+          }
           return null;
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for code
       TextFormField(
         controller: codeController,
         decoration: InputDecoration(
@@ -281,6 +332,7 @@ class EditUserState extends ConsumerState<EditUser> {
         ),
       ),
       const SizedBox(height: 20.0,),
+      //text field for salary per day
       TextFormField(
         controller: salaryPerDayController,
         decoration: InputDecoration(
@@ -291,7 +343,7 @@ class EditUserState extends ConsumerState<EditUser> {
       const SizedBox(height: 20.0,),
     ];
 
-    //"container widget"
+    //"container widget" -> Alert dialog widget
     return AlertDialog(
       title: Padding(
         padding: const EdgeInsets.only(bottom: 10.0),

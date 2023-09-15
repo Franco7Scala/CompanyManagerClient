@@ -1,4 +1,3 @@
-import 'package:company_manager_client/models/user.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/for_work_shift_managent/edit_user_work_shift.dart';

@@ -25,6 +25,7 @@ final addUserProvider=FutureProvider.autoDispose.family<void, User>((ref, user) 
     else{
       debugPrint("BAD REQUEST");
     }
+    // ignore: unused_result
     ref.refresh(listOfUsersProvider);
   } 
   catch(e) {
@@ -62,7 +63,7 @@ class AddUserState extends ConsumerState<AddUser> {
   void initState() {
     super.initState();
     passwordController.addListener(_onTextChanged);
-    user=User();
+    user=User(capabilityList: []);
   }
 
   void _onTextChanged() {
@@ -89,6 +90,19 @@ class AddUserState extends ConsumerState<AddUser> {
     //watch provider
     final appLocalization=ref.watch(AppLocalizations.providers);
     final selectedCapability=ref.watch(selectedCapabilityProvider);
+    final listOfUsers=ref.watch(listOfUsersProvider);
+
+    //username to match for form validate
+    List<String> usernameAlreadyUsed=[];
+    
+    listOfUsers.maybeWhen(
+      data: (users) {
+        for(User user in users) {
+          usernameAlreadyUsed.add(user.username!);
+        }
+      },
+      orElse: () => null,
+    );
 
     //enum??????
     final  listOfCapability = <String>[
@@ -98,6 +112,15 @@ class AddUserState extends ConsumerState<AddUser> {
       appLocalization.stuffs!,
       appLocalization.users!,
       appLocalization.workShift!,
+    ];
+
+    final  nameOfCapability = <String>[
+      "add product",
+      "add stuffs",
+      "products",
+      "stuffs",
+      "users",
+      "work shift",
     ];
 
     //pop up menu for choose capability
@@ -116,7 +139,7 @@ class AddUserState extends ConsumerState<AddUser> {
         (index) => PopupMenuItem(
           onTap: () {
             setState(() {
-              user.capability.add(CapabilityModel(name: listOfCapability[index]));
+              user.capabilityList!.add(CapabilityModel(name: nameOfCapability[index], value: nameOfCapability[index]));
             });
           },
           child: Text(listOfCapability[index]),
@@ -147,18 +170,26 @@ class AddUserState extends ConsumerState<AddUser> {
             SingleChildScrollView(
               child: Column(
                 children: List.generate(
-                  user.capability.length, 
+                  user.capabilityList!.length, 
                   (index) {
                     return Column(
                       children: [
                         const Divider(),
                         Row(
                           children: <Widget>[
-                            Expanded(child: Text(user.capability[index].name)),
+                            Expanded(child: Text(
+                              user.capabilityList![index].name=="add product" ? appLocalization.addProduct! :
+                              user.capabilityList![index].name=="add stuffs" ? appLocalization.addStuffs! :
+                              user.capabilityList![index].name=="products" ? appLocalization.products! :
+                              user.capabilityList![index].name=="stuffs" ? appLocalization.stuffs! :
+                              user.capabilityList![index].name=="users" ? appLocalization.users! :
+                              user.capabilityList![index].name=="work shift" ? appLocalization.workShift! :
+                              ""
+                            )),
                             IconButton(
                               onPressed: () {
                                 setState(() {
-                                  user.capability.removeAt(index);
+                                  user.capabilityList!.removeAt(index);
                                 });
                               },
                               icon: const Icon(Iconsax.trash),
@@ -178,6 +209,7 @@ class AddUserState extends ConsumerState<AddUser> {
 
     //my text form field
     final myTextFormFields = [
+      //text field for first name
       TextFormField(
         controller: firstNameController,
         decoration: InputDecoration(
@@ -192,6 +224,7 @@ class AddUserState extends ConsumerState<AddUser> {
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for last name
       TextFormField(
         controller: lastNameController,
         decoration: InputDecoration(
@@ -206,6 +239,7 @@ class AddUserState extends ConsumerState<AddUser> {
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for username
       TextFormField(
         controller: usernameController,
         decoration: const InputDecoration(
@@ -216,10 +250,16 @@ class AddUserState extends ConsumerState<AddUser> {
           if (username == null || username.isEmpty) {
             return appLocalization.fieldCannotEmpty;
           }
+          for(String u in usernameAlreadyUsed){
+            if(username==u){
+              return appLocalization.usernameAlreadyUsed!;
+            }
+          }
           return null;
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for email
       TextFormField(
         controller: emailController,
         decoration: const InputDecoration(
@@ -228,6 +268,7 @@ class AddUserState extends ConsumerState<AddUser> {
         ),
       ),
       const SizedBox(height: 20.0,),
+      //text field for password
       TextFormField(
         controller: passwordController,
         obscureText: _hidePassword,
@@ -251,10 +292,14 @@ class AddUserState extends ConsumerState<AddUser> {
           if (password == null || password.isEmpty) {
             return appLocalization.fieldCannotEmpty;
           }
+          if(password.length < 8){
+            return appLocalization.passwordMustContain8Caracter;
+          }
           return null;
         },
       ),
       const SizedBox(height: 20.0,),
+      //text field for code
       TextFormField(
         controller: codeController,
         decoration: InputDecoration(
@@ -263,6 +308,7 @@ class AddUserState extends ConsumerState<AddUser> {
         ),
       ),
       const SizedBox(height: 20.0,),
+      //text field for salary per day
       TextFormField(
         controller: salaryPerDayController,
         decoration: InputDecoration(
@@ -273,7 +319,7 @@ class AddUserState extends ConsumerState<AddUser> {
       const SizedBox(height: 20.0,),
     ];
 
-    //"container widget"
+    //"container widget" -> Alert dialog widget
     return AlertDialog(
       title: Padding(
         padding: const EdgeInsets.only(bottom: 10.0),

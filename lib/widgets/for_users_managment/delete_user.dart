@@ -20,6 +20,7 @@ final deleteUserProvider=FutureProvider.autoDispose.family<void, User>((ref, use
     else {
       debugPrint("BAD REQUEST");
     }
+    // ignore: unused_result
     ref.refresh(listOfUsersProvider);
   }
   catch(e){

@@ -11,7 +11,12 @@ class User {
   String? password;
   String? code;
   bool visible;
-  List<CapabilityModel> capability=[];
+  List<CapabilityModel>? capabilityList;
+  //List<Recipt> reiceptList=[];
+  //List<ProductTransition> productTransitionList;
+  //List<StuffTransition> stuffTransitionList;
+  //List<Capability> capabilityList;
+  //List<WorkingDay> workingDayList;
 
   User({
     this.salaryPerDay,
@@ -23,7 +28,7 @@ class User {
     this.password,
     this.code,
     this.visible=true,
-    capability,
+    this.capabilityList,
   });
 
   /* double? get getsalaryPerDay => salaryPerDay;
@@ -37,6 +42,10 @@ class User {
   bool get getVisible => visible; */
 
   factory User.fromJson(Map<String, dynamic> json) {
+     List<CapabilityModel> capabilities = (json['capabilityList'] as List)
+        .map((capabilityJson) => CapabilityModel.fromJson(capabilityJson))
+        .toList();
+
     return User(
       salaryPerDay: json['salaryPerDay'],
       email: json['email'],
@@ -47,13 +56,18 @@ class User {
       password: json['password'],
       code: json['code'],
       visible: json['visible'],
-      /* capability: (json['capability'] as List<dynamic>)
-          .map((e) => CapabilityModel.fromJson(e))
-          .toList(), */
+      capabilityList: capabilities,
     );
   }
 
   Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> capabilityListJson=[];
+        
+    
+    if(capabilityList!=null){
+      capabilityListJson= capabilityList!.map((capability) => capability.toJson()).toList();
+    }
+        
     return {
       'salaryPerDay': salaryPerDay,
       'email': email,
@@ -64,7 +78,7 @@ class User {
       'password': password,
       'code': code,
       'visible': visible,
-      /* 'capability': capability.map((c) => c.toJson()).toList(), */
+      'capabilityList': capabilityListJson,
     };
   }
 

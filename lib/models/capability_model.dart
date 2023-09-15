@@ -1,15 +1,13 @@
-import 'package:company_manager_client/models/user.dart';
-
 class CapabilityModel {
 
   String name;
   String? value;
-  List<User> userList=[];
+  //List<User> userList=[];
 
   CapabilityModel({
     required this.name,
     this.value,
-    userList,
+    //userList,
   });
 
   factory CapabilityModel.fromJson(Map<String, dynamic> json) {

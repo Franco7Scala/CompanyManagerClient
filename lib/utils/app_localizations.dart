@@ -119,6 +119,8 @@ class AppLocalizations {
   String? get infoAddMovementStuffButton => _localizedValues[locale.languageCode]?['infoAddMovementStuffButton'];
   String? get doYouWantToRemove => _localizedValues[locale.languageCode]?['doYouWantToRemove'];
   String? get fieldCannotEmpty => _localizedValues[locale.languageCode]?['fieldCannotEmpty'];
+  String? get usernameAlreadyUsed => _localizedValues[locale.languageCode]?['usernameAlreadyUsed'];
+  String? get passwordMustContain8Caracter => _localizedValues[locale.languageCode]?['passwordMustContain8Caracter'];
   
 
   // mapping delle traduzioni
@@ -230,6 +232,8 @@ class AppLocalizations {
       'infoAddMovementStuffButton': 'In this panel you can download the material after using it.',
       'doYouWantToRemove': 'Do you want to remove',
       'fieldCannotEmpty': 'Field can\'t be empty',
+      'usernameAlreadyUsed': 'Username already used',
+      'passwordMustContain8Caracter': 'The password must contain at least 8 characters',
     },
     'it': {
       'login': 'Accedi',
@@ -338,6 +342,8 @@ class AppLocalizations {
       'infoAddMovementStuffButton': 'In questo pannello puoi scaricare il materiale dopo averlo utilizzato.',
       'doYouWantToRemove': 'Vuoi eliminare',
       'fieldCannotEmpty': 'Il campo non può essere vuoto',
+      'usernameAlreadyUsed': 'Username già utilizzato',
+      'passwordMustContain8Caracter': 'La password deve contenere almeno 8 caratteri',
     },
     // Aggiungi altre lingue qui...
   };
