@@ -1,4 +1,5 @@
 import 'package:company_manager_client/models/capability_model.dart';
+import 'package:company_manager_client/models/working_day.dart';
 
 class User {
  
@@ -12,12 +13,11 @@ class User {
   String? code;
   bool visible;
   List<CapabilityModel>? capabilityList;
+  List<WorkingDay>? workingDayList;
   //List<Recipt> reiceptList=[];
   //List<ProductTransition> productTransitionList;
   //List<StuffTransition> stuffTransitionList;
-  //List<Capability> capabilityList;
-  //List<WorkingDay> workingDayList;
-
+  
   User({
     this.salaryPerDay,
     this.email,
@@ -29,22 +29,17 @@ class User {
     this.code,
     this.visible=true,
     this.capabilityList,
+    this.workingDayList,
   });
 
-  /* double? get getsalaryPerDay => salaryPerDay;
-  String? get getEmail => email;
-  int get getId => id;
-  String? get getUserName => username;
-  String? get getFirstName => firstName;
-  String? get getLastName => lastName;
-  String? get getPassword => password;
-  String? get getCode => code;
-  bool get getVisible => visible; */
-
   factory User.fromJson(Map<String, dynamic> json) {
-     List<CapabilityModel> capabilities = (json['capabilityList'] as List)
-        .map((capabilityJson) => CapabilityModel.fromJson(capabilityJson))
-        .toList();
+    List<CapabilityModel> capabilities = (json['capabilityList'] as List)
+      .map((capabilityJson) => CapabilityModel.fromJson(capabilityJson))
+      .toList();
+
+    List<WorkingDay> workingDays = (json['workingDayList'] as List)
+      .map((workingDayJson) => WorkingDay.fromJson(workingDayJson))
+      .toList();
 
     return User(
       salaryPerDay: json['salaryPerDay'],
@@ -57,15 +52,20 @@ class User {
       code: json['code'],
       visible: json['visible'],
       capabilityList: capabilities,
+      workingDayList: workingDays,
     );
   }
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> capabilityListJson=[];
-        
+    List<Map<String, dynamic>> workingDayListJson=[];
     
     if(capabilityList!=null){
       capabilityListJson= capabilityList!.map((capability) => capability.toJson()).toList();
+    }
+
+    if(workingDayList != null){
+      workingDayListJson=workingDayList!.map((workingDay) => workingDay.toJson()).toList();
     }
         
     return {
@@ -79,6 +79,7 @@ class User {
       'code': code,
       'visible': visible,
       'capabilityList': capabilityListJson,
+      'workingDayList': workingDayListJson,
     };
   }
 

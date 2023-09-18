@@ -121,6 +121,7 @@ class AppLocalizations {
   String? get fieldCannotEmpty => _localizedValues[locale.languageCode]?['fieldCannotEmpty'];
   String? get usernameAlreadyUsed => _localizedValues[locale.languageCode]?['usernameAlreadyUsed'];
   String? get passwordMustContain8Caracter => _localizedValues[locale.languageCode]?['passwordMustContain8Caracter'];
+  String? get back => _localizedValues[locale.languageCode]?['back'];
   
 
   // mapping delle traduzioni
@@ -170,7 +171,7 @@ class AppLocalizations {
       'showCalendar': 'Show calendar',
       'daysThisMonth': 'Days this month',
       'daysPreviousMonth': 'Days previous month',
-      'addDay': 'Add days',  
+      'addDay': 'Add working day',  
       'day': 'Day', 
       'summary': 'Summary',
       'month': 'Month', 
@@ -234,6 +235,7 @@ class AppLocalizations {
       'fieldCannotEmpty': 'Field can\'t be empty',
       'usernameAlreadyUsed': 'Username already used',
       'passwordMustContain8Caracter': 'The password must contain at least 8 characters',
+      'back': 'Back',
     },
     'it': {
       'login': 'Accedi',
@@ -344,6 +346,7 @@ class AppLocalizations {
       'fieldCannotEmpty': 'Il campo non può essere vuoto',
       'usernameAlreadyUsed': 'Username già utilizzato',
       'passwordMustContain8Caracter': 'La password deve contenere almeno 8 caratteri',
+      'back': 'Indietro',
     },
     // Aggiungi altre lingue qui...
   };
