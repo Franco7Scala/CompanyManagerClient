@@ -5,7 +5,7 @@ import 'package:company_manager_client/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final selectedIndexProvider=StateProvider<int>((ref) => 0);
+final selectedIndexProvider=StateProvider<int>((ref) => 2);
 
 class DashboardPage extends ConsumerWidget {
   const DashboardPage({super.key});

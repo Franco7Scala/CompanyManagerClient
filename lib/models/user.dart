@@ -1,4 +1,5 @@
 import 'package:company_manager_client/models/capability_model.dart';
+import 'package:company_manager_client/models/receipt.dart';
 import 'package:company_manager_client/models/working_day.dart';
 
 class User {
@@ -14,7 +15,7 @@ class User {
   bool visible;
   List<CapabilityModel>? capabilityList;
   List<WorkingDay>? workingDayList;
-  //List<Recipt> reiceptList=[];
+  List<Receipt>? receiptList=[];
   //List<ProductTransition> productTransitionList;
   //List<StuffTransition> stuffTransitionList;
   
@@ -30,6 +31,7 @@ class User {
     this.visible=true,
     this.capabilityList,
     this.workingDayList,
+    this.receiptList,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -39,6 +41,10 @@ class User {
 
     List<WorkingDay> workingDays = (json['workingDayList'] as List)
       .map((workingDayJson) => WorkingDay.fromJson(workingDayJson))
+      .toList();
+    
+    List<Receipt> receiptList= (json['receiptList'] as List)
+      .map((receiptJson) => Receipt.fromJson(receiptJson))
       .toList();
 
     return User(
@@ -53,12 +59,14 @@ class User {
       visible: json['visible'],
       capabilityList: capabilities,
       workingDayList: workingDays,
+      receiptList: receiptList,
     );
   }
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> capabilityListJson=[];
     List<Map<String, dynamic>> workingDayListJson=[];
+    List<Map<String, dynamic>> receiptListJson=[];
     
     if(capabilityList!=null){
       capabilityListJson= capabilityList!.map((capability) => capability.toJson()).toList();
@@ -66,6 +74,10 @@ class User {
 
     if(workingDayList != null){
       workingDayListJson=workingDayList!.map((workingDay) => workingDay.toJson()).toList();
+    }
+
+    if(receiptList != null){
+      receiptListJson=receiptList!.map((receipt) => receipt.toJson()).toList();
     }
         
     return {
@@ -80,6 +92,7 @@ class User {
       'visible': visible,
       'capabilityList': capabilityListJson,
       'workingDayList': workingDayListJson,
+      'receiptList': receiptListJson,
     };
   }
 

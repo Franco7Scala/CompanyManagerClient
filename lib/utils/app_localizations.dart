@@ -122,7 +122,17 @@ class AppLocalizations {
   String? get usernameAlreadyUsed => _localizedValues[locale.languageCode]?['usernameAlreadyUsed'];
   String? get passwordMustContain8Caracter => _localizedValues[locale.languageCode]?['passwordMustContain8Caracter'];
   String? get back => _localizedValues[locale.languageCode]?['back'];
-  
+  String? get sold => _localizedValues[locale.languageCode]?['sold'];
+  String? get reserved => _localizedValues[locale.languageCode]?['reserved'];
+  String? get addStateFirst => _localizedValues[locale.languageCode]?['addStateFirst'];
+  String? get noReceipt => _localizedValues[locale.languageCode]?['noReceipt'];
+  String? get noUser => _localizedValues[locale.languageCode]?['noUser'];
+  String? get noProduct => _localizedValues[locale.languageCode]?['noProduct'];
+  String? get noTransition => _localizedValues[locale.languageCode]?['noTransition'];
+  String? get noState => _localizedValues[locale.languageCode]?['noState'];
+  String? get close => _localizedValues[locale.languageCode]?['close'];
+  String? get createState => _localizedValues[locale.languageCode]?['createState'];
+  String? get create => _localizedValues[locale.languageCode]?['create'];
 
   // mapping delle traduzioni
   static const Map<String, Map<String, String>> _localizedValues = {
@@ -236,6 +246,17 @@ class AppLocalizations {
       'usernameAlreadyUsed': 'Username already used',
       'passwordMustContain8Caracter': 'The password must contain at least 8 characters',
       'back': 'Back',
+      'sold': 'Sold',
+      'reserved': 'Reserved',
+      'addStateFirst': 'Add a state first in the State tab',
+      'noReceipt': 'No receipt',
+      'noUser': 'No user',
+      'noProduct': 'No product',
+      'noTransition': 'No transition',
+      'noState': 'No state',
+      'close': 'Close',
+      'createState': 'Create state',
+      'create': 'Create',
     },
     'it': {
       'login': 'Accedi',
@@ -305,7 +326,7 @@ class AppLocalizations {
       'favourite': 'Preferito',
       'addState': 'Aggiungi stato',
       'enterTheNameOfTheState': 'Inserisci il nome dello stato',
-      'infoStateButton': 'In questo pannello puoi creare, modificare e rimuovere gli stati dei prodotti, il preferito verrà visualizzato quando fai la ricerca dei prodotti, se marchi uno stato lo marchi come "scaricabile" (dunque la terza iconcina) chi ha il solo permesso di visualizzazione e scarico prodotti potrà utilizzare i prodotti in tale stato solo per lo scarico.',
+      'infoStateButton': 'In questo pannello puoi creare, modificare e rimuovere gli stati dei prodotti, il preferito verrà visualizzato quando fai la ricerca dei prodotti, se marchi uno stato come "scaricabile" (dunque la terza iconcina) chi ha il solo permesso di visualizzazione e scarico prodotti potrà utilizzare i prodotti in tale stato solo per lo scarico.',
       'info': 'Informazioni',
       'quantity': 'Quantità',
       'from': 'Da',
@@ -347,6 +368,17 @@ class AppLocalizations {
       'usernameAlreadyUsed': 'Username già utilizzato',
       'passwordMustContain8Caracter': 'La password deve contenere almeno 8 caratteri',
       'back': 'Indietro',
+      'sold': 'Venduto',
+      'reserved': 'Prenotato',
+      'addStateFirst': 'Aggungi prima uno stato nel tab Stato',
+      'noReceipt': 'Nessuna ricevuta',
+      'noUser': 'Nessun utente',
+      'noProduct': 'Nessun prodotto',
+      'noTransition': 'Nessun movimento',
+      'noState': 'Nessun stato',
+      'close': 'Chiudi',
+      'createState': 'Crea stato',
+      'create': 'Crea',
     },
     // Aggiungi altre lingue qui...
   };

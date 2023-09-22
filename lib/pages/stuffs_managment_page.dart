@@ -1,10 +1,10 @@
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
+import 'package:company_manager_client/widgets/for_stuffs_managment/list_of_stuffs.dart';
 import 'package:company_manager_client/widgets/my_app_bar.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/add_stuff.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/add_stuff_movements.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/stuff_movements.dart';
-import 'package:company_manager_client/widgets/for_stuffs_managment/stuffs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
@@ -72,7 +72,7 @@ class StuffsManagmentPage extends ConsumerWidget {
 
             Visibility(
               visible: selectedChipStuffs==0,
-              child: const Stuffs(),
+              child: const ListOfStuffs(),
             ),
             
             Visibility(

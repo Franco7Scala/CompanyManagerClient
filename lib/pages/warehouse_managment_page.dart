@@ -1,13 +1,13 @@
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/responsive_layout.dart';
-import 'package:company_manager_client/widgets/for_warehouse_managment/add_movement.dart';
+import 'package:company_manager_client/widgets/for_warehouse_managment/add_transition.dart';
 import 'package:company_manager_client/widgets/for_warehouse_managment/add_product.dart';
-import 'package:company_manager_client/widgets/for_warehouse_managment/add_state.dart';
-import 'package:company_manager_client/widgets/for_warehouse_managment/products.dart';
-import 'package:company_manager_client/widgets/for_warehouse_managment/movements.dart';
+import 'package:company_manager_client/widgets/for_warehouse_managment/create_state_model.dart';
+import 'package:company_manager_client/widgets/for_warehouse_managment/list_of_products.dart';
+import 'package:company_manager_client/widgets/for_warehouse_managment/list_of_product_transitions.dart';
 import 'package:company_manager_client/widgets/my_app_bar.dart';
-import 'package:company_manager_client/widgets/for_warehouse_managment/receipts.dart';
-import 'package:company_manager_client/widgets/for_warehouse_managment/state_widget.dart';
+import 'package:company_manager_client/widgets/for_warehouse_managment/list_of_receipts.dart';
+import 'package:company_manager_client/widgets/for_warehouse_managment/list_of_state_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
@@ -101,24 +101,24 @@ class WarehouseManagmentPage extends ConsumerWidget {
 
             Visibility(
               visible: selectedChipWarehouse==3,
-              child: const Receipts(),
+              child: const ListOfReceipts(),
             ),
             
             
             Visibility(
               visible: selectedChipWarehouse==2,
-              child: const StateWidget(),
+              child: const ListOfStateModel(),
             ),
 
             
             Visibility(
               visible: selectedChipWarehouse==1,
-              child: const Movements(),
+              child: const ListOfProductTransions(),
             ),
 
             Visibility(
               visible: selectedChipWarehouse==0,
-              child: const Products(),
+              child: const ListOfProducts(),
             ),
             
 
@@ -131,12 +131,12 @@ class WarehouseManagmentPage extends ConsumerWidget {
           onPressed: selectedChipWarehouse==2 ? 
             () => showDialog(
               context: context, 
-              builder: (BuildContext context) => const AddState(),
+              builder: (BuildContext context) => const CreateStateModel(),
             ) 
             : selectedChipWarehouse==1 ? 
             () => showDialog(
               context: context, 
-              builder: (BuildContext context) => const AddMovement(),
+              builder: (BuildContext context) => const AddTransition(),
             ) 
             : selectedChipWarehouse==0 ? 
             () => showDialog(
@@ -147,7 +147,7 @@ class WarehouseManagmentPage extends ConsumerWidget {
             null,
           icon: const Icon(Iconsax.add),
           label: Text(
-            selectedChipWarehouse==2 ? appLocalization.addState! : 
+            selectedChipWarehouse==2 ? appLocalization.createState! : 
             selectedChipWarehouse==1 ? appLocalization.addMovement! :
             appLocalization.addProduct! 
           ),
