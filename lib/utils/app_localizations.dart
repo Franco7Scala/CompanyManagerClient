@@ -133,6 +133,9 @@ class AppLocalizations {
   String? get close => _localizedValues[locale.languageCode]?['close'];
   String? get createState => _localizedValues[locale.languageCode]?['createState'];
   String? get create => _localizedValues[locale.languageCode]?['create'];
+  String? get noStuff => _localizedValues[locale.languageCode]?['noStuff'];
+  String? get searchResults => _localizedValues[locale.languageCode]?['searchResults'];
+  String? get editStuff => _localizedValues[locale.languageCode]?['editStuff'];
 
   // mapping delle traduzioni
   static const Map<String, Map<String, String>> _localizedValues = {
@@ -257,6 +260,9 @@ class AppLocalizations {
       'close': 'Close',
       'createState': 'Create state',
       'create': 'Create',
+      "noStuff": 'No stuff',
+      "searchResults": 'Search results',
+      'editStuff': 'Edit stuff',
     },
     'it': {
       'login': 'Accedi',
@@ -379,6 +385,9 @@ class AppLocalizations {
       'close': 'Chiudi',
       'createState': 'Crea stato',
       'create': 'Crea',
+      "noStuff": 'Nessun materiale',
+      "searchResults": 'Risultati ricerca',
+      'editStuff': 'Modifica materiale',
     },
     // Aggiungi altre lingue qui...
   };

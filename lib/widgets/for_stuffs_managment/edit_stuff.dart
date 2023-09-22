@@ -7,12 +7,11 @@ import 'package:company_manager_client/widgets/for_stuffs_managment/list_of_stuf
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:just_the_tooltip/just_the_tooltip.dart';
 
-final addStuffProvider=FutureProvider.family<void, Stuff>((ref, stuff) async {
-  const endPoint="/stuffs/53";
+final editStuffProvider=FutureProvider.family<void, Stuff>((ref, stuff) async {
+  const endPoint="/stuffs/editStuff";
   final dio=ref.watch(dioProvider);
-  await dio.post(
+  await dio.put(
     "${Constants.baseUrl}$endPoint",
     data: stuff.toJson(),
   );
@@ -20,51 +19,55 @@ final addStuffProvider=FutureProvider.family<void, Stuff>((ref, stuff) async {
   ref.refresh(getAllStuffsProvider);
 });
 
-class AddStuff extends ConsumerStatefulWidget {
-  const AddStuff({super.key});
+// ignore: must_be_immutable
+class EditStuff extends ConsumerStatefulWidget {
+  Stuff stuff;
+
+  EditStuff({
+    required this.stuff,
+    super.key
+  });
 
   @override
-  AddStuffState createState() => AddStuffState();
+  EditStuffState createState() => EditStuffState();
 }
 
-class AddStuffState extends ConsumerState<AddStuff> {
-  final _formKey = GlobalKey<FormState>(); //key for form validate
+class EditStuffState extends ConsumerState<EditStuff> {
+  //key for validate form
+  final _formKey = GlobalKey<FormState>();
 
   //controller for TextFormField
-  final nameController=TextEditingController();
-  final unitOfMeasureController=TextEditingController();
-  final singleBarcodeController=TextEditingController();
-  final packageBarcodeController=TextEditingController();
-  final descriptionController=TextEditingController();
-  final quantityController=TextEditingController();
-  final thresholdForWarningController=TextEditingController();
+  late TextEditingController nameController;
+  late TextEditingController unitOfMeasureController;
+  late TextEditingController singleBarcodeController;
+  late TextEditingController packageBarcodeController;
+  late TextEditingController descriptionController;
+  late TextEditingController quantityController;
+  late TextEditingController thresholdForWarningController;
 
   @override
+  void initState() {
+    super.initState();
+    nameController=TextEditingController(text: widget.stuff.name);
+    unitOfMeasureController=TextEditingController(text: widget.stuff.unitMeasure);
+    singleBarcodeController=TextEditingController(text: widget.stuff.barCodeSingle);
+    packageBarcodeController=TextEditingController(text: widget.stuff.barCodePackage);
+    descriptionController=TextEditingController(text: widget.stuff.description);
+    quantityController=TextEditingController(text: widget.stuff.quantity.toString());
+    thresholdForWarningController=TextEditingController(text: widget.stuff.threshold.toString());
+  }
+  
+  @override
   Widget build(BuildContext context) {
-    //watch providers
     final appLocalization=ref.watch(AppLocalizations.providers);
-
-    Widget infoAddStuffButton() => JustTheTooltip(
-      content: SizedBox(
-        width: 400,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(appLocalization.infoAddStuffButton!, textAlign: TextAlign.justify,)
-        ),
-      ),
-      isModal: true, 
-      offset: 5.0,
-      child: const Icon(Iconsax.info_circle),
-    );
 
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Iconsax.box_add),
+          const Icon(Iconsax.edit_2),
           const SizedBox(width: 10.0,),
-          Expanded(child: Text(appLocalization.addStuff!)),
-          infoAddStuffButton(),
+          Expanded(child: Text(appLocalization.editStuff!)),
         ],
       ),
       scrollable: true,
@@ -184,30 +187,36 @@ class AddStuffState extends ConsumerState<AddStuff> {
           height: MediaQuery.of(context).size.width <= 382.0 ? 10.0 : null, 
         ),
 
-        //yearController.text.isEmpty ? null : int.tryParse(yearController.text), 
         TextButton(
           onPressed: () {
             if (_formKey.currentState!.validate()){
-              Stuff stuff=Stuff(
-                quantity: quantityController.text.isEmpty ? null : double.tryParse(quantityController.text),
-                threshold: thresholdForWarningController.text.isEmpty ? null : double.tryParse(thresholdForWarningController.text),
-                name: nameController.text,
-                unitMeasure: unitOfMeasureController.text,
-                description: descriptionController.text,
-                barCodeSingle: singleBarcodeController.text,
-                barCodePackage: packageBarcodeController.text,
-              );
-              ref.watch(addStuffProvider(stuff));
+              widget.stuff.quantity=quantityController.text.isEmpty ? null : double.tryParse(quantityController.text);
+              widget.stuff.threshold=thresholdForWarningController.text.isEmpty ? null : double.tryParse(thresholdForWarningController.text);
+              widget.stuff.name=nameController.text;
+              widget.stuff.unitMeasure=unitOfMeasureController.text;
+              widget.stuff.description=descriptionController.text;
+              widget.stuff.barCodeSingle=singleBarcodeController.text;
+              widget.stuff.barCodePackage=packageBarcodeController.text;
+
+              ref.watch(editStuffProvider(widget.stuff));
               Navigator.pop(context);
             }
           }, 
-          child: Text(appLocalization.addStuff!),
+          child: Text(appLocalization.editStuff!),
         )
 
 
       ],
 
     );
+    
   }
+
+
+
+
+
+
 }
+
 

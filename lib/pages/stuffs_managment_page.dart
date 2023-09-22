@@ -3,8 +3,8 @@ import 'package:company_manager_client/utils/responsive_layout.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/list_of_stuffs.dart';
 import 'package:company_manager_client/widgets/my_app_bar.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/add_stuff.dart';
-import 'package:company_manager_client/widgets/for_stuffs_managment/add_stuff_movements.dart';
-import 'package:company_manager_client/widgets/for_stuffs_managment/stuff_movements.dart';
+import 'package:company_manager_client/widgets/for_stuffs_managment/add_stuff_transition.dart';
+import 'package:company_manager_client/widgets/for_stuffs_managment/list_of_stuff_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
@@ -77,7 +77,7 @@ class StuffsManagmentPage extends ConsumerWidget {
             
             Visibility(
               visible: selectedChipStuffs==1,
-              child: const StuffMovements(),
+              child: const ListOfStuffTransition(),
             ),
             
 
@@ -95,7 +95,7 @@ class StuffsManagmentPage extends ConsumerWidget {
             : selectedChipStuffs==1 ? 
             () => showDialog(
               context: context, 
-              builder: (BuildContext context) => const AddStuffMovements(),
+              builder: (BuildContext context) => const AddStuffTransition(),
             ) 
             : null,
           icon: const Icon(Iconsax.add),

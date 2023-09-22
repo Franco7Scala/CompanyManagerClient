@@ -2,6 +2,7 @@ import 'package:company_manager_client/main.dart';
 import 'package:company_manager_client/models/stuff.dart';
 import 'package:company_manager_client/utils/app_localizations.dart';
 import 'package:company_manager_client/utils/constants.dart';
+import 'package:company_manager_client/widgets/for_stuffs_managment/edit_stuff.dart';
 import 'package:company_manager_client/widgets/for_stuffs_managment/search_stuff.dart';
 import 'package:company_manager_client/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -60,23 +61,25 @@ class ListOfStuffs extends ConsumerWidget {
                       DataColumn(label: Text(appLocalization.quantity!)),
                       DataColumn(label: Text(appLocalization.thresholdForWarning!)),
                       DataColumn(label: Text(appLocalization.description!)),
-                      DataColumn(label: Text(appLocalization.edit!)),
+                      DataColumn(label: Center(child: Text(appLocalization.edit!))),
                     ],
                     rows: List<DataRow>.generate(
                       stuffs.length, 
                       (index)  => DataRow(
                         cells: <DataCell> [
-                          DataCell(Text(stuffs[index].name)),
-                          DataCell(Text(stuffs[index].quantity.toString())),
-                          DataCell(Text(stuffs[index].threshold.toString())),
-                          DataCell(Text(stuffs[index].description)),
+                          DataCell(Text(stuffs[index].name!)),
+                          DataCell(Center(child: Text(stuffs[index].quantity.toString()))),
+                          DataCell(Center(child: Text(stuffs[index].threshold.toString()))),
+                          DataCell(Text(stuffs[index].description!)),
                           DataCell(
-                            IconButton(
-                              onPressed: () => showDialog(
-                                context: context, 
-                                builder: (BuildContext buildContext) => Container(),
+                            Center(
+                              child: IconButton(
+                                onPressed: () => showDialog(
+                                  context: context, 
+                                  builder: (BuildContext buildContext) => EditStuff(stuff: stuffs[index]),
+                                ),
+                                icon: const Icon(Iconsax.edit_2),
                               ),
-                              icon: const Icon(Iconsax.add),
                             )
                           ),
                         ],
@@ -88,10 +91,13 @@ class ListOfStuffs extends ConsumerWidget {
             ),
             Visibility(
               visible: stuffs.isEmpty,
-              child: Card(child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(appLocalization.noResult!),
-              ))
+              child: Text(
+                appLocalization.noStuff!,
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontStyle: FontStyle.italic
+                ),
+              ),
             )
           ],
         );

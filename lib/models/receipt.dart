@@ -1,5 +1,4 @@
 import 'package:company_manager_client/models/product_in_receipt.dart';
-import 'package:company_manager_client/models/user.dart';
 
 class Receipt {
 

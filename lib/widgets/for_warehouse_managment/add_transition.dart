@@ -43,15 +43,9 @@ class AddTransitionState extends ConsumerState<AddTransition> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Wrap(
-            spacing: 10.0,
-            runSpacing: 10.0,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              const Icon(Iconsax.refresh),
-              Text(appLocalization.addMovement!),
-            ],
-          ),
+          const Icon(Iconsax.refresh),
+          const SizedBox(width: 10.0,),
+          Expanded(child: Text(appLocalization.addMovement!)),
           infoTransitionButton(),
         ],
       ),

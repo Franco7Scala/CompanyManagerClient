@@ -10,16 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-final getFullProductsDetailByProductNameProvider=FutureProvider.family<List<ProductDetail>, String>((ref, text) async {
-  String endPoint="/products/getFullProductsDetailByProductName/$text";
+final getProductsDetailByProductNameProvider=FutureProvider.family<List<ProductDetail>, String>((ref, textKey) async {
+  String endPoint="/products/getProductsDetailByProductName/$textKey";
   final dio=ref.watch(dioProvider);
   final response=await dio.get("${Constants.baseUrl}$endPoint");
   final data=response.data;
   return List<ProductDetail>.from(data.map((productDetailJson) => ProductDetail.fromJson(productDetailJson)));
 });
 
-final getProductsDetailByProductNameProvider=FutureProvider.family<List<ProductDetail>, String>((ref, text) async {
-  String endPoint="/products/getProductsDetailByProductName/$text";
+final getFullProductsDetailByProductNameProvider=FutureProvider.family<List<ProductDetail>, String>((ref, textKey) async {
+  String endPoint="/products/getFullProductsDetailByProductName/$textKey";
   final dio=ref.watch(dioProvider);
   final response=await dio.get("${Constants.baseUrl}$endPoint");
   final data=response.data;
@@ -51,58 +51,71 @@ class SearchProductState extends ConsumerState<SearchProduct> {
       return null; 
     }
 
-    searchedProduct(List<ProductDetail> listOfProductDetail) => AlertDialog(
-      content: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Iconsax.printer),
-            ),
-          ),
-          const SizedBox(height: 20.0,),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: <DataColumn>[
-                DataColumn(label: Text(appLocalization.code!)),
-                DataColumn(label: Text(appLocalization.name!)),
-                DataColumn(label: Text(appLocalization.year!)),
-                DataColumn(label: Text(appLocalization.quantity!)),
-                //DataColumn(label: Text(appLocalization.available!)),
-                DataColumn(label: Text(appLocalization.priceForPrivate!)),
-                DataColumn(label: Text(appLocalization.pricePerReseller!)),
-              ],
-              rows: List<DataRow>.generate(
-                  listOfProductDetail .length, 
-                  (index) { 
-                    return ref.watch(listOfProductsProvider).when(
-                      data: (listOfProducts) {
-                        Product? product=findProductById(listOfProducts, listOfProductDetail[index].idProduct!);
-                        return DataRow(
-                          cells: <DataCell> [
-                            DataCell(Text(product!.code!)),
-                            DataCell(Text(product.name!)),
-                            DataCell(Text(listOfProductDetail[index].year.toString())),
-                            DataCell(Text(listOfProductDetail[index].quantity.toString())),
-                            //DataCell(Text(listOfProducts[index].available!.toString())),
-                            DataCell(Text(listOfProductDetail[index].pricePrivate.toString())),
-                            DataCell(Text(listOfProductDetail[index].priceReseller.toString())),
-                          ],
+    Widget showSearchedProduct(String texKey, int value) { 
+      final productDetailsList= value==0 ? ref.watch(getProductsDetailByProductNameProvider(texKey)) : ref.watch(getFullProductsDetailByProductNameProvider(texKey));
+      
+      return AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            const Icon(Iconsax.search_normal_1),
+            const SizedBox(width: 10.0,),
+            Expanded(child: Text(appLocalization.searchResults!)),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Iconsax.printer),
+              ),
+          ],
+        ),
+        scrollable: true,
+        content: productDetailsList.when(
+          data: (productDetails) {
+            return SizedBox(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columns: <DataColumn>[
+                    DataColumn(label: Text(appLocalization.code!)),
+                    DataColumn(label: Text(appLocalization.name!)),
+                    DataColumn(label: Text(appLocalization.year!)),
+                    DataColumn(label: Text(appLocalization.quantity!)),
+                    //DataColumn(label: Text(appLocalization.available!)),
+                    DataColumn(label: Text(appLocalization.priceForPrivate!)),
+                    DataColumn(label: Text(appLocalization.pricePerReseller!)),
+                  ],
+                  rows: List<DataRow>.generate(
+                      productDetails .length, 
+                      (index) { 
+                        return ref.watch(listOfProductsProvider).when(
+                          data: (listOfProducts) {
+                            Product? product=findProductById(listOfProducts, productDetails[index].idProduct!);
+                            return DataRow(
+                              cells: <DataCell> [
+                                DataCell(Text(product!.code!)),
+                                DataCell(Text(product.name!)),
+                                DataCell(Text(productDetails[index].year.toString())),
+                                DataCell(Text(productDetails[index].quantity.toString())),
+                                //DataCell(Text(listOfProducts[index].available!.toString())),
+                                DataCell(Text(productDetails[index].pricePrivate.toString())),
+                                DataCell(Text(productDetails[index].priceReseller.toString())),
+                              ],
+                            );
+                          },
+                          loading: () => const DataRow(cells: []),
+                          error: (error, stackTrace) => const DataRow(cells: []),
                         );
-                      },
-                      loading: () => const DataRow(cells: []),
-                      error: (error, stackTrace) => const DataRow(cells: []),
-                    );
-                    
-                  }
+                        
+                      }
+                    ),
                 ),
-            ),
-          ),
-        ],
-      ),
-    );
+              ),
+            );
+          }, 
+          error: (error, stackTrace) => Text(error.toString()), 
+          loading: () => const LoadingWidget(),
+        )
+      );
+    }
     
     return AlertDialog(
       title: Wrap(
@@ -145,13 +158,9 @@ class SearchProductState extends ConsumerState<SearchProduct> {
                 ),  
                 onPressed: () { 
                   if (_formKey.currentState!.validate()){
-                    ref.watch(getProductsDetailByProductNameProvider(searchController.text.toLowerCase().trim())).when(
-                      data: (listOfProducts) => showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) => searchedProduct(listOfProducts),
-                      ),
-                      loading: () => const LoadingWidget(),
-                      error: (error, stackTrace) => Text(error.toString()),
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext buildContext) => showSearchedProduct(searchController.text, 0),
                     );
                   }
                 },
@@ -166,13 +175,9 @@ class SearchProductState extends ConsumerState<SearchProduct> {
                 ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()){
-                    ref.watch(getFullProductsDetailByProductNameProvider(searchController.text.toLowerCase().trim())).when(
-                      data: (listOfProductDeatil) => showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) => searchedProduct(listOfProductDeatil),
-                      ),
-                      loading: () => const LoadingWidget(),
-                      error: (error, stackTrace) => Text(error.toString()),
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext buildContext) => showSearchedProduct(searchController.text, 1),
                     );
                   }
                 },

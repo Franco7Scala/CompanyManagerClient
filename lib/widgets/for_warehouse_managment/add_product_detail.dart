@@ -52,7 +52,7 @@ class AddProductDetailState extends ConsumerState<AddProductDetail> {
     final appLocalization=ref.watch(AppLocalizations.providers);
 
     late User user;
-    int selectedStateModelIndex=0;
+    //int selectedStateModelIndex=0;
   
     ref.watch(listOfUsersProvider).when(
         data: (us){

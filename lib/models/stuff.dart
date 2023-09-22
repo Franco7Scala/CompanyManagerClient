@@ -1,30 +1,36 @@
+import 'package:company_manager_client/models/stuff_transition.dart';
+
 class Stuff {
 
-  double quantity;
-  double threshold;
-  bool visible;
-  int id;
-  String name;
-  String unitMeasure;
-  String description;
-  String barCodeSingle;
-  String barCodePackage;
-  //List<StuffTransition> stuffTransitionList;
+  double? quantity;
+  double? threshold;
+  bool? visible;
+  int? id;
+  String? name;
+  String? unitMeasure;
+  String? description;
+  String? barCodeSingle;
+  String? barCodePackage;
+  List<StuffTransition>? stuffTransitionList;
 
   Stuff({
-    required this.quantity,
-    required this.threshold,
+    this.quantity,
+    this.threshold,
     this.visible=true,
-    required this.id,
-    required this.name,
-    required this.unitMeasure,
-    required this.description,
-    required this.barCodeSingle,
-    required this.barCodePackage,
+    this.id,
+    this.name,
+    this.unitMeasure,
+    this.description,
+    this.barCodeSingle,
+    this.barCodePackage,
+    this.stuffTransitionList,
   });
 
   factory Stuff.fromJson(Map<String, dynamic> json) {
-
+    List<StuffTransition> stuffTransitionList = (json['stuffTransitionList'] as List)
+      .map((stuffTransitionJson) => StuffTransition.fromJson(stuffTransitionJson))
+      .toList();
+    
     return Stuff(
       quantity: json['quantity'],
       threshold: json['threshold'],
@@ -35,10 +41,17 @@ class Stuff {
       description: json['description'],
       barCodeSingle: json['barCodeSingle'],
       barCodePackage: json['barCodePackage'],
+      stuffTransitionList: stuffTransitionList,
     );
   }
 
-  Map<String, dynamic> toJson() {        
+  Map<String, dynamic> toJson() {      
+    List<Map<String, dynamic>> stuffTransitionListJson=[];  
+
+    if(stuffTransitionList!=null){
+      stuffTransitionListJson= stuffTransitionList!.map((stuffTransition) => stuffTransition.toJson()).toList();
+    } 
+
     return {
       'quantity': quantity,
       'threshold': threshold,
@@ -49,6 +62,7 @@ class Stuff {
       'description': description,
       'barCodeSingle': barCodeSingle,
       'barCodePackage': barCodePackage,
+      'stuffTransitionList': stuffTransitionListJson,
     };
   }
 
